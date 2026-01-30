@@ -16,19 +16,23 @@
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
+        <script src="js.js"></script>
     </head>
 
-    <body>
+    <body style="background-color: #f5f5f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0;">
         <header>
             <!-- place navbar here -->
         </header>
-        
+
         <main>
-            <h1>Actividad 02</h1>
-            <button onclick="sumar()">+</button>
-            <button onclick="restar()">-</button>
-
-
+            <div style="text-align: center; background: white; padding: 40px; border-radius: 8px;">
+                <h2>Contador</h2>
+                <h1 id="contador" style="font-size: 3rem; margin: 20px 0;">0</h1>
+                <div>
+                    <button onclick="restar()" class="btn btn-danger" style="margin: 0 10px;">−</button>
+                    <button onclick="sumar()" class="btn btn-success" style="margin: 0 10px;">+</button>
+                </div>
+            </div>
         </main>
         <footer>
             <!-- place footer here -->
