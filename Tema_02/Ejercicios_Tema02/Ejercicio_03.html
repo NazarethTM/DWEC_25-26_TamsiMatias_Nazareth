@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejercicio -Clasificación por edad</title>
+  </head>
+  <body>
+    <script>
+      let edad = prompt("Introduce tu edad: ");
+      edad = Number(edad);
+      if (isNaN(edad)) {
+        document.write("El valor introducido no es un número...");
+      } else if (edad >= 0 && edad <= 3) {
+        document.write("Eres un/a infante");
+      } else if (edad >= 4 && edad <= 12) {
+        document.write("Eres un/a niño/a");
+      } else if (edad >= 13 && edad <= 17) {
+        document.write("Eres un/a adolescente");
+      } else if (edad >= 18 && edad <= 64) {
+        document.write("Eres un/a adulto/a");
+      } else if (edad >= 65) {
+        document.write("Eres un/a adulto/a mayor");
+      }
+    </script>
+  </body>
+</html>

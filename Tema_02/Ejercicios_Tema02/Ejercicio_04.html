@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejercicio - Calculadora de precio</title>
+  </head>
+  <body>
+    <script>
+      let precio = Number(prompt("Introduce el precio del producto:"));
+
+      let codigo = prompt("Introduce el código de descuento:");
+
+      let descuento = 0;
+
+      if (codigo === "DESCUENTO10") {
+        descuento = precio * 0.1;
+      } else if (codigo === "DESCUENTO20") {
+        descuento = precio * 0.2;
+      } else {
+        descuento = 0;
+      }
+
+      let precioConDescuento = precio - descuento;
+
+      let impuesto = precioConDescuento * 0.15;
+
+      let precioFinal = precioConDescuento + impuesto;
+
+      document.write("Precio original: " + precio + "€ <br>"); 
+      document.write("Tipo de descuento aplicado: " + descuento + "€ <br>");
+      document.write("Precio con descuento: " + precioConDescuento + "€ <br>");
+      document.write("Precio final con impuestos: " + precioFinal + "€ <br>");
+    </script>
+  </body>
+</html>

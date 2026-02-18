@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejercicio - condiciones de acceso</title>
+  </head>
+  <body>
+    <script>
+      let esMiembro = prompt("¿Eres miembro de la biblioteca? (si/no)");
+
+      esMiembro = esMiembro.toLowerCase();
+
+      let edad = Number(prompt("Introduce tu edad:"));
+
+      if (esMiembro === "si" && edad >= 18) {
+        document.write("Acceso concedido a la biblioteca.");
+      } else {
+        document.write(
+          "Acceso denegado. Debes ser miembro y/o tener más de 18 años.");
+      }
+    </script>
+  </body>
+</html>
