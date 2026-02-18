@@ -9,7 +9,12 @@
     <script>
       let precio = Number(prompt("Introduce el precio del producto:"));
 
-      let codigo = prompt("Introduce el código de descuento:");
+      let codigo = prompt("Introduce el código de descuento(DESCUENTO10 o DESCUENTO20):");
+
+      if (isNaN(precio) || precio <= 0){
+        document.write("El valor introducido no es un numero. Vuelva a intentarlo.<br>");
+        precio = Number(prompt("Introduce el precio del producto:"));
+      }
 
       let descuento = 0;
 
@@ -28,7 +33,7 @@
       let precioFinal = precioConDescuento + impuesto;
 
       document.write("Precio original: " + precio + "€ <br>"); 
-      document.write("Tipo de descuento aplicado: " + descuento + "€ <br>");
+      document.write("Tipo de descuento aplicado: " + codigo + " (" + descuento + "€) <br>");
       document.write("Precio con descuento: " + precioConDescuento + "€ <br>");
       document.write("Precio final con impuestos: " + precioFinal + "€ <br>");
     </script>
