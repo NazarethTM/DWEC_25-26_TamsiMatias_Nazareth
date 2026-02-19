@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Simulación de Acceso</title>
+</head>
+
+<body>
+
+    <h1>Acceso al Sistema</h1>
+
+    <form id="loginForm">
+        <label>Usuario:</label>
+        <input type="text" id="usuario"><br><br>
+
+        <label>Contraseña:</label>
+        <input type="password" id="password"><br><br>
+
+        <button type="submit">Acceder</button>
+    </form>
+
+    <p id="mensaje"></p>
+
+    <script>
+        // Capturamos el formulario
+        let formulario = document.getElementById("loginForm");
+
+        formulario.addEventListener("submit", function (event) {
+            event.preventDefault(); // Evita que la página se recargue
+
+            // Obtener valores
+            let usuario = document.getElementById("usuario").value;
+            let password = document.getElementById("password").value;
+
+            // Comprobación
+            if (usuario === "admin" && password === "12345") {
+                document.getElementById("mensaje").innerHTML = "Acceso correcto";
+            } else {
+                document.getElementById("mensaje").innerHTML = "Acceso denegado";
+            }
+        });
+    </script>
+
+</body>
+
+</html>

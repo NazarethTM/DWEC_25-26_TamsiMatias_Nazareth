@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tirada de Dado</title>
+</head>
+
+<body>
+
+    <h1>Tirada de Dado 🎲</h1>
+
+    <script>
+
+        // Generar número aleatorio entre 1 y 6
+        document.write("<h2>Tiramos el dado</h2>\n");
+
+        let dado = Math.floor(Math.random() * 6) + 1;
+
+        document.write("<h2>Resultado: " + dado + "</h2>");
+
+        if (dado === 6) {
+            document.write("<p>🎉 Valor máximo 🎉</p>");
+        }
+
+        document.write("<h2>Esperando siguiente tirada</h2>\n");
+
+    </script>
+
+</body>
+
+</html>

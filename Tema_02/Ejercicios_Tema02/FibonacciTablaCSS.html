@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Serie de Fibonacci</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 300px;
+            background-color: white;
+        }
+
+        th {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px;
+        }
+
+        td {
+            padding: 8px;
+            border: 1px solid #ccc;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .ultima {
+            background-color: #27ae60 !important;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Serie de Fibonacci</h1>
+
+    <script>
+
+        let cantidad = parseInt(prompt("¿Cuántos números de la serie de Fibonacci quieres calcular?"));
+
+        if (isNaN(cantidad) || cantidad <= 0) {
+
+            document.write("<p>Debes introducir un número entero positivo.</p>");
+
+        } else {
+
+            document.write("<h2>Se van a calcular " + cantidad + " posiciones.</h2>");
+
+            document.write("<table>");
+            document.write("<tr><th>Posición</th><th>Valor</th></tr>");
+
+            let a = 0;
+            let b = 1;
+            let siguiente;
+
+            for (let i = 1; i <= cantidad; i++) {
+
+                // Si es la última fila añadimos la clase CSS
+                if (i === cantidad) {
+                    document.write("<tr class='ultima'>");
+                } else {
+                    document.write("<tr>");
+                }
+
+                document.write("<td>" + i + "</td>");
+                document.write("<td>" + a + "</td>");
+                document.write("</tr>");
+
+                siguiente = a + b;
+                a = b;
+                b = siguiente;
+            }
+
+            document.write("</table>");
+        }
+
+    </script>
+
+</body>
+
+</html>

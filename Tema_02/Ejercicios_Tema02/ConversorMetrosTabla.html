@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Conversor de Metros</title>
+</head>
+
+<body>
+
+    <h1>Conversor de Metros</h1>
+
+    <script>
+        // Pedir al usuario los metros
+        let metros = parseFloat(prompt("Introduce una cantidad en metros:"));
+
+        // Comprobar que es un número válido
+        if (isNaN(metros)) {
+            document.write("<p>No has introducido un número válido.</p>");
+        } else {
+
+            // Conversiones
+            let centimetros = metros * 100;
+            let milimetros = metros * 1000;
+            let pulgadas = metros * 39.3701;
+            let pies = metros * 3.28084;
+            let kilometros = metros / 1000;
+
+            // Mostrar resultados en tabla
+            document.write("<h2>Resultados:</h2>");
+            document.write("<table border='1' cellpadding='5' cellspacing='0'>");
+
+            document.write("<tr><th>Unidad</th><th>Valor</th></tr>");
+            document.write("<tr><td>Metros</td><td>" + metros + " m</td></tr>");
+            document.write("<tr><td>Centímetros</td><td>" + centimetros + " cm</td></tr>");
+            document.write("<tr><td>Milímetros</td><td>" + milimetros + " mm</td></tr>");
+            document.write("<tr><td>Pulgadas</td><td>" + pulgadas.toFixed(2) + " in</td></tr>");
+            document.write("<tr><td>Pies</td><td>" + pies.toFixed(2) + " ft</td></tr>");
+            document.write("<tr><td>Kilómetros</td><td>" + kilometros + " km</td></tr>");
+
+            document.write("</table>");
+        }
+    </script>
+
+</body>
+
+</html>

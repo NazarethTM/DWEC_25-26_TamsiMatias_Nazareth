@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo - Funciones</title>
+</head>
+
+<body>
+
+    <h2>Ejemplo - Funciones</h2>
+
+    <script>
+        function sumar(a, b) {
+            return a + b;
+        }
+        function saludar() {
+            alert("Bienvenidos a Desarrollo Web en Entorno Cliente");
+        }
+        function saludarUsuario(nombre) {
+            return "Hola " + nombre + ", bienvenido al curso.";
+        }
+
+        // Llamamos a la función
+        saludar();
+        // Pedimos datos al usuario
+        let numero1 = Number(prompt("Introduce el primer número:"));
+        let numero2 = Number(prompt("Introduce el segundo número:"));
+
+        // Llamamos a la función
+        let resultado = sumar(numero1, numero2);
+
+        // Mostramos resultado
+        alert("El resultado es: " + resultado);
+        // Pedimos el nombre
+        let nombreUsuario = prompt("Introduce tu nombre:");
+
+        // Llamamos a la función
+        let mensaje = saludarUsuario(nombreUsuario);
+
+        // Mostramos resultado
+        alert(mensaje);
+    </script>
+
+</body>
+
+</html>

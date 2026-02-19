@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Factura - Calculadora de Precios</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .factura {
+      width: 520px;
+      margin: 0 auto;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 18px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      text-align: left;
+    }
+
+    .cabecera {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+    }
+
+    .cabecera h1 {
+      margin: 0;
+      font-size: 20px;
+      color: #2c3e50;
+    }
+
+    .datos {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.4;
+      text-align: right;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    th {
+      text-align: left;
+      background: #2c3e50;
+      color: white;
+      padding: 10px;
+      font-weight: bold;
+    }
+
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    td:last-child {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .etiqueta {
+      color: #555;
+    }
+
+    .descuento {
+      color: #c0392b;
+      font-weight: bold;
+    }
+
+    .total {
+      background: #1abc9c;
+      font-weight: bold;
+      font-size: 18px;
+      color: #000;
+    }
+
+    .total td {
+      border-bottom: none;
+    }
+
+    .nota {
+      margin-top: 12px;
+      font-size: 12px;
+      color: #666;
+      border-top: 1px solid #eee;
+      padding-top: 10px;
+    }
+
+    .ok {
+      color: #27ae60;
+      font-weight: bold;
+    }
+
+    .warn {
+      color: #e67e22;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="factura" id="salida"></div>
+
+  <script>
+    function formatoES(numero) {
+      return numero.toLocaleString("es-ES", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+        useGrouping: "always"  // fuerza el separador de miles
+      });
+    }
+
+    function fechaHoyES() {
+      return new Date().toLocaleDateString("es-ES");
+    }
+
+    function generarPedido() {
+      // Pedido simple: # + 6 dígitos
+      return "#" + Math.floor(100000 + Math.random() * 900000);
+    }
+    let html = "";
+    let precioOriginal = parseFloat(prompt("Introduce el precio del producto:"));
+    
+    if (isNaN(precioOriginal) || precioOriginal <= 0) {
+
+      html += "<h2 class='warn'>⚠ Precio no válido</h2>";
+      html += "<p>Debes introducir un número mayor que 0.</p>";
+
+    } else {
+
+
+      // Descuento
+      let codigo = prompt("Introduce un código de descuento (DESCUENTO10 o DESCUENTO20):");
+      if (codigo === null) codigo = "";
+      codigo = codigo.trim().toUpperCase();
+      let porcentajeDescuento = 0;
+      if (codigo === "DESCUENTO10") porcentajeDescuento = 10;
+      else if (codigo === "DESCUENTO20") porcentajeDescuento = 20;
+
+      let descuentoAplicado = precioOriginal * (porcentajeDescuento / 100);
+      let baseImponible = precioOriginal;
+
+      if (porcentajeDescuento > 0) {
+        baseImponible = precioOriginal - descuentoAplicado;
+      }
+
+      // Impuesto
+      let iva = baseImponible * 0.15;
+      let total = baseImponible + iva;
+
+      // Cabecera factura
+      html += "<div class='cabecera'>";
+      html += "  <div>";
+      html += "    <h1>Factura / Ticket 🧾</h1>";
+      html += "    <div class='etiqueta'>Centro: ISEP-CEU · Módulo: DWEC</div>";
+      html += "  </div>";
+      html += "  <div class='datos'>";
+      html += "    <div><span class='etiqueta'>Pedido:</span> <strong>" + generarPedido() + "</strong></div>";
+      html += "    <div><span class='etiqueta'>Fecha:</span> <strong>" + fechaHoyES() + "</strong></div>";
+      html += "  </div>";
+      html += "</div>";
+
+      // Tabla desglose
+      html += "<table>";
+      html += "  <tr><th>Concepto</th><th>Importe</th></tr>";
+      html += "  <tr><td>Precio original</td><td>" + formatoES(precioOriginal) + " €</td></tr>";
+
+      if (porcentajeDescuento > 0) {
+        html += "  <tr><td>Descuento (" + porcentajeDescuento + "%)</td><td class='descuento'>- " + formatoES(descuentoAplicado) + " €</td></tr>";
+        html += "  <tr><td>Base imponible (precio con descuento)</td><td>" + formatoES(baseImponible) + " €</td></tr>";
+        html += "  <tr><td>Código aplicado</td><td class='ok'>" + codigo + "</td></tr>";
+      } else {
+        html += "  <tr><td>Descuento</td><td>0,00 €</td></tr>";
+        html += "  <tr><td>Código aplicado</td><td class='warn'>Ninguno / inválido</td></tr>";
+        html += "  <tr><td>Base imponible</td><td>" + formatoES(baseImponible) + " €</td></tr>";
+      }
+
+      html += "  <tr><td>IVA (15%)</td><td>+ " + formatoES(iva) + " €</td></tr>";
+      html += "  <tr class='total'><td>Total a pagar</td><td>" + formatoES(total) + " €</td></tr>";
+      html += "</table>";
+
+      // Nota
+      html += "<div class='nota'>💡 Nota: esto es una simulación en JavaScript (lado cliente). En un sistema real, descuentos e impuestos se validan en el servidor.</div>";
+    }
+
+    // Sin document.write(): volcamos el HTML al contenedor
+    document.getElementById("salida").innerHTML = html;
+  </script>
+
+</body>
+
+</html>

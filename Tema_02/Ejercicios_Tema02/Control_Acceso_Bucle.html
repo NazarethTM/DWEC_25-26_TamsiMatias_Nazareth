@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Control de Acceso - Biblioteca</title>
+</head>
+
+<body>
+
+    <h1>Control de Acceso 📚</h1>
+
+    <script>
+
+        let respuesta;
+        let esMiembro;
+
+        // Validar que responda solo "si" o "no"
+        do {
+            respuesta = prompt("¿Eres miembro de la biblioteca? (si/no)");
+
+            if (respuesta !== null) {
+                respuesta = respuesta.trim().toLowerCase();
+            }
+
+        } while (respuesta !== "si" && respuesta !== "no");
+
+        esMiembro = (respuesta === "si");
+
+
+        let edad;
+
+        // Validar que la edad sea un número entero mayor o igual que 0
+        do {
+            edad = parseInt(prompt("Introduce tu edad:"));
+        } while (isNaN(edad) || edad < 0);
+
+
+        // Comprobación final
+        if (esMiembro && edad > 18) {
+            document.write("<p>Acceso concedido a la biblioteca.</p>");
+        } else {
+            document.write("<p>Acceso denegado. Debes ser miembro y tener más de 18 años.</p>");
+        }
+
+    </script>
+
+</body>
+
+</html>

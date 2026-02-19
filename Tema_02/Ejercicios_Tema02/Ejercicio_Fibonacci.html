@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let cantidad = parseInt(prompt("Cuántas veces quieres calcular la serie del Fibonacci?"));
+
+        if (isNaN(cantidad) || cantidad <=0){
+            document.write ("Debes introducir un número entero positivo.");
+
+        } else {
+            let a = 0;
+            let b = 1;
+            let next;
+
+            document.write("Serie de Fibonacci: <br>");
+
+            for (let i = 1; i <= cantidad; i++){
+                document.write (a + "<br>");
+
+                next = a + b;
+                a = b;
+                b = next;
+            }
+        }
+    </script>
+</body>
+</html>

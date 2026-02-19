@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Suma de números enteros</title>
+</head>
+
+<body>
+
+    <h1>Suma desde 1 hasta N</h1>
+
+    <script>
+
+        // Pedimos el número al usuario
+        let numero = parseInt(prompt("Introduce un número entero positivo:"));
+
+        // Validamos que sea correcto
+        if (isNaN(numero) || numero < 1) {
+
+            document.write("<p>Debes introducir un número entero positivo.</p>");
+
+        } else {
+
+            let suma = 0;
+            let contador = 1;
+
+            // Bucle while
+            while (contador <= numero) {
+                suma = suma + contador;
+                contador++;
+            }
+
+            document.write("<p>La suma de los números desde 1 hasta " + numero + " es: <strong>" + suma + "</strong></p>");
+        }
+
+    </script>
+
+</body>
+
+</html>

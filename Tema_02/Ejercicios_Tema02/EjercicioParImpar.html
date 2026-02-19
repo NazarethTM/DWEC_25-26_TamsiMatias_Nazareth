@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="content-type" content="text/html charset=utf-8" />
+	<title>Par Impar</title>
+</head>
+
+<body>
+	<script>
+		// Pedir al usuario que introduzca un número
+		let numero = prompt("Introduce un número:");
+		let resultado = "";
+
+		// Convertimos el valor a número
+		numero = Number(numero);
+
+		// Comprobamos si es par o impar
+		if (numero % 2 === 0) {
+			resultado = "El número " + numero + " es par";
+			alert("El número " + numero + " es par");
+		} else {
+			resultado = "El número " + numero + " es impar";
+			alert("El número " + numero + " es impar");
+		}
+		document.write(resultado);
+	</script>
+</body>
+
+</html>

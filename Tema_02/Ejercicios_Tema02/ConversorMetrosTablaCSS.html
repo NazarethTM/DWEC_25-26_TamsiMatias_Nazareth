@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Conversor de Metros</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 350px;
+            background-color: white;
+        }
+
+        th {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px;
+        }
+
+        td {
+            padding: 8px;
+            border: 1px solid #ccc;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Conversor de Metros</h1>
+
+    <script>
+        let metros = parseFloat(prompt("Introduce una cantidad en metros:"));
+
+        if (isNaN(metros)) {
+
+            document.write("<p> 🪧 No has introducido un número válido.  🪧</p>");
+
+        } else {
+
+            let centimetros = metros * 100;
+            let milimetros = metros * 1000;
+            let pulgadas = metros * 39.3701;
+            let pies = metros * 3.28084;
+            let kilometros = metros / 1000;
+
+            document.write("<h2>Resultados:</h2>");
+            document.write("<table>");
+            document.write("<tr><th>Unidad</th><th>Valor</th></tr>");
+            document.write("<tr><td>Metros</td><td>" + metros + " m</td></tr>");
+            document.write("<tr><td>Centímetros</td><td>" + centimetros + " cm</td></tr>");
+            document.write("<tr><td>Milímetros</td><td>" + milimetros + " mm</td></tr>");
+            document.write("<tr><td>Pulgadas</td><td>" + pulgadas.toFixed(2) + " in</td></tr>");
+            document.write("<tr><td>Pies</td><td>" + pies.toFixed(2) + " ft</td></tr>");
+            document.write("<tr><td>Kilómetros</td><td>" + kilometros + " km</td></tr>");
+            document.write("</table>");
+        }
+    </script>
+
+</body>
+
+</html>

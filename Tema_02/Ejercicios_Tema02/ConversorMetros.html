@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Conversor de Metros</title>
+</head>
+
+<body>
+
+    <h1>Conversor de Metros</h1>
+
+    <script>
+        // Pedir al usuario los metros
+        let metros = parseFloat(prompt("Introduce una cantidad en metros:"));
+
+        // Comprobar que es un número válido
+        if (isNaN(metros)) {
+            document.write("<p>No has introducido un número válido.</p>");
+        } else {
+
+            // Conversiones
+            let centimetros = metros * 100;
+            let milimetros = metros * 1000;
+            let pulgadas = metros * 39.3701;
+            let pies = metros * 3.28084;
+            let kilometros = metros / 1000;
+
+            // Mostrar resultados
+            document.write("<h2>Resultados:</h2>");
+            document.write("<p>Metros: " + metros + " m</p>");
+            document.write("<p>Centímetros: " + centimetros + " cm</p>");
+            document.write("<p>Milímetros: " + milimetros + " mm</p>");
+            document.write("<p>Pulgadas: " + pulgadas.toFixed(2) + " in</p>");
+            document.write("<p>Pies: " + pies.toFixed(2) + " ft</p>");
+            document.write("<p>Kilómetros: " + kilometros + " km</p>");
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Acceso, Usuario y contraseña</title>
+
+</head>
+
+<body>
+	<script>
+		let usuario = "admin";
+		let contraseña = "12345";
+
+		// Simulamos los datos ingresados por el usuario
+
+		let usuarioIngresado = prompt("Introduce el usuario: ");
+		let contraseñaIngresada = prompt("Introduce la contraseña");
+		document.write("Se ha enviado el usuario " + usuarioIngresado + " y la contraseña " + contraseñaIngresada + "<br>");
+		if (usuarioIngresado === usuario && contraseñaIngresada === contraseña) {
+			document.write("Inicio de sesión exitoso. ¡Bienvenido!<br>");
+		} else {
+			document.write("Error: Usuario o contraseña incorrectos.<br>");
+		}
+
+		document.write("Fin del proceso de autenticación.<br>");
+	</script>
+
+</body>
+
+</html>

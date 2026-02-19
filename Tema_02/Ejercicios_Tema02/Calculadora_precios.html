@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora de Precios</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 420px;
+            background-color: white;
+        }
+
+        th {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px;
+        }
+
+        td {
+            padding: 8px;
+            border: 1px solid #ccc;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .total {
+            background-color: #1abc9c;
+            color: black;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .total td {
+            padding: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Calculadora de Precios 🛒</h1>
+
+    <script>
+
+        let precioOriginal = parseFloat(prompt("Introduce el precio del producto:"));
+        let codigo = prompt("Introduce un código de descuento (DESCUENTO10 o DESCUENTO20):");
+
+        if (codigo === null) {
+            codigo = "";
+        }
+
+        codigo = codigo.trim().toUpperCase();
+
+        if (isNaN(precioOriginal) || precioOriginal <= 0) {
+
+            document.write("<p>⚠ Precio no válido. Debe ser un número mayor que 0.</p>");
+
+        } else {
+
+            let porcentajeDescuento = 0;
+
+            if (codigo === "DESCUENTO10") {
+                porcentajeDescuento = 10;
+            } else if (codigo === "DESCUENTO20") {
+                porcentajeDescuento = 20;
+            }
+
+            let descuentoAplicado = precioOriginal * (porcentajeDescuento / 100);
+            let precioBase = precioOriginal;
+            let precioConDescuento = precioOriginal;
+
+            if (porcentajeDescuento > 0) {
+                precioConDescuento = precioOriginal - descuentoAplicado;
+                precioBase = precioConDescuento;
+            }
+
+            let impuesto = precioBase * 0.15;
+            let totalConImpuesto = precioBase + impuesto;
+
+            document.write("<h2>Resumen de la compra</h2>");
+            document.write("<table>");
+            document.write("<tr><th>Concepto</th><th>Importe (€)</th></tr>");
+            document.write("<tr><td>Precio original</td><td>" + precioOriginal.toFixed(2) + "</td></tr>");
+
+            // SOLO mostrar si hay descuento
+            if (porcentajeDescuento > 0) {
+                document.write("<tr><td>Descuento aplicado (" + porcentajeDescuento + "%)</td><td>-" + descuentoAplicado.toFixed(2) + "</td></tr>");
+                document.write("<tr><td>Precio con descuento</td><td>" + precioConDescuento.toFixed(2) + "</td></tr>");
+            }
+
+            document.write("<tr><td>Impuesto (15%)</td><td>+" + impuesto.toFixed(2) + "</td></tr>");
+            document.write("<tr class='total'><td>Total final</td><td>" + totalConImpuesto.toFixed(2) + " €</td></tr>");
+            document.write("</table>");
+        }
+
+    </script>
+
+</body>
+
+</html>

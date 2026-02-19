@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Serie de Fibonacci</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 300px;
+            background-color: white;
+        }
+
+        th {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px;
+        }
+
+        td {
+            padding: 8px;
+            border: 1px solid #ccc;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .ultima {
+            background-color: #27ae60 !important;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Serie de Fibonacci</h1>
+
+    <div id="resultado"></div>
+
+    <script>
+
+        let cantidad = parseInt(prompt("¿Cuántos números de la serie de Fibonacci quieres calcular?"));
+
+        let salida = "";
+
+        if (isNaN(cantidad) || cantidad <= 0) {
+
+            salida = "<p>Debes introducir un número entero positivo.</p>";
+
+        } else {
+
+            salida += "<h2>Se van a calcular " + cantidad + " posiciones.</h2>";
+            salida += "<table>";
+            salida += "<tr><th>Posición</th><th>Valor</th></tr>";
+
+            let a = 0;
+            let b = 1;
+            let siguiente;
+
+            for (let i = 1; i <= cantidad; i++) {
+
+                if (i === cantidad) {
+                    salida += "<tr class='ultima'>";
+                } else {
+                    salida += "<tr>";
+                }
+
+                salida += "<td>" + i + "</td>";
+                salida += "<td>" + a + "</td>";
+                salida += "</tr>";
+
+                siguiente = a + b;
+                a = b;
+                b = siguiente;
+            }
+
+            salida += "</table>";
+        }
+
+        document.getElementById("resultado").innerHTML = salida;
+
+    </script>
+
+</body>
+
+</html>

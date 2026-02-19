@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Serie de Fibonacci</title>
+</head>
+
+<body>
+
+    <h1>Serie de Fibonacci</h1>
+
+    <script>
+
+        // Pedimos cuántos números quiere calcular
+        let cantidad = parseInt(prompt("¿Cuántos números de la serie de Fibonacci quieres calcular?"));
+
+        // Validamos
+        if (isNaN(cantidad) || cantidad <= 0) {
+
+            document.write("<p>Debes introducir un número entero positivo.</p>");
+
+        } else {
+
+            let a = 0;
+            let b = 1;
+            let siguiente;
+
+            document.write("<h2>Serie de Fibonacci:</h2>");
+
+            for (let i = 1; i <= cantidad; i++) {
+
+                document.write(a + "<br>");
+
+                siguiente = a + b;
+                a = b;
+                b = siguiente;
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

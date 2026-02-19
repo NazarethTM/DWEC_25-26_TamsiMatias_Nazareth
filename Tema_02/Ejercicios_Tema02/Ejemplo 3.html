@@ -1,0 +1,22 @@
+<!DOCTYPE html> 
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html charset=utf-8"/>
+		<script type="text/javascript" src="script.js"></script>
+		<title>Plantilla</title>
+	</head>
+	<body>
+		<script>
+			document.write("<h1>Tirada de dado</h1>\n");
+			let dado = Math.floor(Math.random() * 6)+1;
+			document.write("<p>Ha sacado un " + dado+".</p>\n");
+			if (dado == 6) {
+    			document.write("<p>¡Ha conseguido la máxima puntuación!</p>\n");
+			}
+			document.write("<p>Esperando la siguiente tirada</p>\n");
+		</script>
+		
+	</body>
+</html>
+
+

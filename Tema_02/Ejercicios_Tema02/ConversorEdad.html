@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Clasificación por Edad</title>
+</head>
+
+<body>
+
+    <h1>Clasificación por Edad</h1>
+
+    <script>
+
+        // Pedimos la edad
+        let edad = parseInt(prompt("Introduce una edad entre 0 y 110:"));
+
+        // Comprobamos que sea un número válido y esté en el rango
+        if (isNaN(edad) || edad < 0 || edad > 110) {
+
+            document.write("<p>Edad no válida. Debe estar entre 0 y 110.</p>");
+
+        } else {
+
+            let categoria;
+
+            // Usamos switch(true) para evaluar rangos
+            switch (true) {
+
+                case (edad >= 0 && edad <= 3):
+                    categoria = "Infante";
+                    break;
+
+                case (edad >= 4 && edad <= 12):
+                    categoria = "Niño";
+                    break;
+
+                case (edad >= 13 && edad <= 17):
+                    categoria = "Adolescente";
+                    break;
+
+                case (edad >= 18 && edad <= 64):
+                    categoria = "Adulto";
+                    break;
+
+                case (edad >= 65 && edad <= 110):
+                    categoria = "Adulto mayor";
+                    break;
+            }
+
+            document.write("<p>La persona pertenece a la categoría: <strong>" + categoria + "</strong></p>");
+        }
+
+    </script>
+
+</body>
+
+</html>
