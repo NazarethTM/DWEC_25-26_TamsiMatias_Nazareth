@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ejercicio 3: Generador de calendario</title>
+
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+
+      td,
+      th {
+        border: 1px solid black;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+      }
+
+      .hoy {
+        background-color: yellow;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Calendario mensual</h2>
+
+    <div id="calendario"></div>
+
+    <script>
+      // Pedimos mes y año al usuario
+      var mes = parseInt(prompt("Introduce el mes (1-12)"));
+      var anio = parseInt(prompt("Introduce el año (ejemplo: 2026)"));
+
+      // 1. cuando el usuario introduce un mes, le resto 1 para adaptarlo al formato que usa el objeto Date
+      var mesReal = mes - 1;
+
+      // 2. Creamos una fecha con el primer día del mes
+      var primerDia = new Date(anio, mesReal, 1);
+
+      // 3. Obtenemos el día de la semana
+      var diaSemana = primerDia.getDay();
+
+      // 4. Convertimos formato Domingo=0 a Lunes=0
+      diaSemana = (diaSemana + 6) % 7;
+
+      // 5. Calculamos el último día del mes
+      var ultimoDia = new Date(anio, mesReal + 1, 0).getDate();
+
+      // Obtenemos la fecha actual
+      var hoy = new Date();
+      var diaActual = hoy.getDate();
+      var mesActual = hoy.getMonth();
+      var anioActual = hoy.getFullYear();
+
+      // CREAR TABLA (Visual)
+
+      var html = "<table>";
+
+      html += "<tr>";
+      html += "<th>Lun</th>";
+      html += "<th>Mar</th>";
+      html += "<th>Mie</th>";
+      html += "<th>Jue</th>";
+      html += "<th>Vie</th>";
+      html += "<th>Sab</th>";
+      html += "<th>Dom</th>";
+      html += "</tr>";
+
+      html += "<tr>";
+
+      // 7. Añadimos celdas vacías antes del primer día
+      for (var i = 0; i < diaSemana; i++) {
+        html += "<td></td>";
+      }
+
+      var contador = diaSemana;
+
+      // 6. Rellenamos los días del mes
+      for (var dia = 1; dia <= ultimoDia; dia++) {
+        var clase = "";
+
+        // Resaltar el día actual si coincide
+        if (dia === diaActual && mesReal === mesActual && anio === anioActual) {
+          clase = "class='hoy'";
+        }
+
+        html += "<td " + clase + ">" + dia + "</td>";
+
+        contador++;
+
+        // Cada 7 días cambiamos de fila
+        if (contador % 7 === 0) {
+          html += "</tr><tr>";
+        }
+      }
+
+      // Celdas vacías al final si hacen falta
+      while (contador % 7 !== 0) {
+        html += "<td></td>";
+        contador++;
+      }
+
+      html += "</tr>";
+      html += "</table>";
+
+      // Mostramos el calendario en la página
+      document.getElementById("calendario").innerHTML = html;
+    </script>
+  </body>
+</html>

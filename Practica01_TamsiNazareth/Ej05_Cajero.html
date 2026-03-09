@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ejercicio 05: Cajero automático</title>
+  </head>
+
+  <body>
+    <script>
+      // Saldo inicial
+      var saldo = 1000;
+
+      // Array para guardar historial
+      var historial = [];
+
+      // Variable para controlar el menú
+      var opcion;
+
+      do {
+        // Mostramos el menú
+        opcion = prompt(
+          "CAJERO AUTOMÁTICO\n\n" +
+            "1) Ingresar dinero\n" +
+            "2) Retirar dinero\n" +
+            "3) Ver saldo\n" +
+            "4) Ver historial\n" +
+            "0) Salir",
+        );
+
+        opcion = parseInt(opcion);
+
+        // INGRESAR DINERO
+        if (opcion === 1) {
+          var cantidad = parseFloat(prompt("Cantidad a ingresar:"));
+
+          if (isNaN(cantidad) || cantidad <= 0) {
+            alert("Cantidad no válida");
+          } else {
+            saldo += cantidad;
+
+            var fecha = new Date().toLocaleString();
+
+            historial.push(
+              "Ingreso: +" + cantidad + "€ | Saldo: " + saldo + "€ | " + fecha,
+            );
+
+            if (historial.length > 5) {
+              historial.shift();
+            }
+
+            alert("Ingreso realizado");
+          }
+        }
+
+        // RETIRAR DINERO
+        else if (opcion === 2) {
+          var cantidad = parseFloat(prompt("Cantidad a retirar:"));
+
+          if (isNaN(cantidad) || cantidad <= 0) {
+            alert("Cantidad no válida");
+          } else if (cantidad > saldo) {
+            alert("No tienes suficiente saldo");
+          } else {
+            saldo -= cantidad;
+
+            var fecha = new Date().toLocaleString();
+
+            historial.push(
+              "Retirada: -" + cantidad + "€ | Saldo: " + saldo + "€ | " + fecha,
+            );
+
+            if (historial.length > 5) {
+              historial.shift();
+            }
+
+            alert("Retirada realizada");
+          }
+        }
+
+        // VER SALDO
+        else if (opcion === 3) {
+          alert("Tu saldo actual es: " + saldo + " €");
+        }
+
+        // VER HISTORIAL
+        else if (opcion === 4) {
+          if (historial.length === 0) {
+            alert("No hay operaciones todavía");
+          } else {
+            var texto = "Historial de operaciones:\n\n";
+
+            for (var i = 0; i < historial.length; i++) {
+              texto += historial[i] + "\n";
+            }
+
+            alert(texto);
+          }
+        }
+      } while (opcion !== 0);
+
+      // Mensaje al salir
+      alert("Gracias por usar el cajero");
+    </script>
+  </body>
+</html>

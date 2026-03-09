@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ejercicio 4: Analizador de texto</title>
+
+    <style>
+      table {
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      td,
+      th {
+        border: 1px solid black;
+        padding: 8px;
+      }
+
+      th {
+        background-color: black;
+        color: white;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>04 - Analizador de texto</h2>
+    <h3>Resultados</h3>
+    <div id="resultados"></div>
+
+    <h3>Top 5 palabras</h3>
+    <div id="top"></div>
+
+    <h3>Texto normalizado</h3>
+    <div id="texto"></div>
+
+    <script>
+      // Pedimos el texto al usuario
+      var texto = prompt("Introduce un texto para analizar:");
+
+      // NORMALIZACIÓN
+
+      // 1. Pasar a minúsculas
+      var normalizado = texto.toLowerCase();
+
+      // 2. Eliminar tildes
+      normalizado = normalizado
+        .normalize("NFD")
+
+      // 3. Eliminar signos de puntuación
+      normalizado = normalizado.replace(/[.,;:¿?¡!()"]/g, "");
+
+      // 4. Reducir espacios múltiples
+      normalizado = normalizado.replace(/\s+/g, " ").trim();
+
+      // MÉTRICAS
+
+      // caracteres con espacios
+      var caracteresCon = texto.length;
+
+      // caracteres sin espacios
+      var caracteresSin = texto.replace(/\s/g, "").length;
+
+      // palabras
+      var palabras = normalizado.split(" ");
+      var numPalabras = palabras.length;
+
+      // palabra más larga
+      var palabraLarga = "";
+
+      for (var i = 0; i < palabras.length; i++) {
+        if (palabras[i].length > palabraLarga.length) {
+          palabraLarga = palabras[i];
+        }
+      }
+
+      // contar vocales
+      var vocales = normalizado.match(/[aeiou]/g);
+      var numVocales = vocales ? vocales.length : 0;
+
+      // FRECUENCIA DE PALABRAS
+
+      var contador = {};
+
+      for (var i = 0; i < palabras.length; i++) {
+        var p = palabras[i];
+
+        if (contador[p]) {
+          contador[p]++;
+        } else {
+          contador[p] = 1;
+        }
+      }
+
+      // convertir objeto a array para ordenar
+      var lista = [];
+
+      for (var palabra in contador) {
+        lista.push([palabra, contador[palabra]]);
+      }
+
+      // ordenar por frecuencia
+      lista.sort(function (a, b) {
+        return b[1] - a[1];
+      });
+
+      // top 5
+      var top5 = lista.slice(0, 5);
+
+      // MOSTRAR RESULTADOS
+      // tabla métricas
+      var html = "<table>";
+
+      html += "<tr><th>Métrica</th><th>Valor</th></tr>";
+
+      html +=
+        "<tr><td>Caracteres (con espacios)</td><td>" +
+        caracteresCon +
+        "</td></tr>";
+      html +=
+        "<tr><td>Caracteres (sin espacios)</td><td>" +
+        caracteresSin +
+        "</td></tr>";
+      html += "<tr><td>Nº de palabras</td><td>" + numPalabras + "</td></tr>";
+      html +=
+        "<tr><td>Palabra más larga</td><td>" + palabraLarga + "</td></tr>";
+      html += "<tr><td>Nº de vocales</td><td>" + numVocales + "</td></tr>";
+
+      html += "</table>";
+
+      document.getElementById("resultados").innerHTML = html;
+
+      // tabla top palabras
+      var htmlTop = "<table>";
+      htmlTop += "<tr><th>Palabra</th><th>Veces</th></tr>";
+
+      for (var i = 0; i < top5.length; i++) {
+        htmlTop += "<tr>";
+        htmlTop += "<td>" + top5[i][0] + "</td>";
+        htmlTop += "<td>" + top5[i][1] + "</td>";
+        htmlTop += "</tr>";
+      }
+
+      htmlTop += "</table>";
+
+      document.getElementById("top").innerHTML = htmlTop;
+
+      // mostrar texto normalizado
+      document.getElementById("texto").innerText = normalizado;
+    </script>
+  </body>
+</html>
