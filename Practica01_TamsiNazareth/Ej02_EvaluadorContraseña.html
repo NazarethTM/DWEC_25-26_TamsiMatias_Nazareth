@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ejercicio 02 - Evaluador de contraseña</title>
+  </head>
+
+  <body>
+    <h2>Evaluador de contraseña</h2>
+
+    <script>
+      // Pedimos la contraseña al usuario
+      var passwd = prompt("Introduce una contraseña para evaluarla");
+
+      // Puntuación inicial
+      var puntos = 0;
+
+      // Aquí guardaremos recomendaciones
+      var recomendaciones = "";
+
+      // A) LONGITUD
+
+      if (passwd.length >= 8) {
+        puntos += 20;
+      } else {
+        recomendaciones += "- Usa al menos 8 caracteres\n";
+      }
+
+      if (passwd.length >= 12) {
+        puntos += 10;
+      }
+
+      // B) CONTENIDO
+      // Aqui ponggo las puntuaciones de cada tipo de caracter y las recomendaciones en caso de que estas no se cumplan.
+
+      if (/[A-Z]/.test(passwd)) {
+        puntos += 15;
+      } else {
+        recomendaciones += "- Añade alguna letra mayúscula\n";
+      }
+
+      if (/[a-z]/.test(passwd)) {
+        puntos += 15;
+      } else {
+        recomendaciones += "- Añade alguna letra minúscula\n";
+      }
+
+      if (/[0-9]/.test(passwd)) {
+        puntos += 15;
+      } else {
+        recomendaciones += "- Añade algún número\n";
+      }
+
+      if (/[^A-Za-z0-9]/.test(passwd)) {
+        puntos += 15;
+      } else {
+        recomendaciones += "- Añade algún caracter especial (!, @, #, etc.)\n";
+      }
+
+      // C) PENALIZACIONES
+      if (/(.)\1\1\1/.test(passwd)) {
+        puntos -= 15;
+        recomendaciones +=
+          "- Evita repetir el mismo carácter muchas veces seguidas\n";
+      }
+
+      // Secuencia sencilla tipo 1234 o abcd
+      if (passwd.includes("1234") || passwd.includes("abcd")) {
+        puntos -= 15;
+        recomendaciones += "- Evita secuencias fáciles como 1234 o abcd\n";
+      }
+
+      // D) AJUSTE FINAL
+
+      if (puntos < 0) {
+        puntos = 0;
+      }
+
+      if (puntos > 100) {
+        puntos = 100;
+      }
+
+      // NIVEL DE SEGURIDAD
+
+      var nivel;
+
+      if (puntos <= 44) {
+        nivel = "Débil";
+      } else if (puntos <= 69) {
+        nivel = "Media";
+      } else {
+        nivel = "Fuerte";
+      }
+
+      // RESULTADO
+
+      alert(
+        "Puntuación de contraseña introducida: " +
+          puntos +
+          "\nNivel de seguridad: " +
+          nivel +
+          "\n\nRecomendaciones/Carencias:\n" +
+          recomendaciones,
+      );
+    </script>
+  </body>
+</html>
