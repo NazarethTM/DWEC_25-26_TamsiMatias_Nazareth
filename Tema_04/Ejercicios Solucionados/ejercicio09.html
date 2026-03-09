@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ejercicio 09 - indexOf()</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 24px; line-height: 1.4; }
+    .card { max-width: 900px; padding: 18px 20px; border: 1px solid #ddd; border-radius: 12px; background: #fff; }
+    h1 { font-size: 22px; margin: 0 0 10px; }
+    p { margin: 10px 0; }
+    button { padding: 10px 14px; border-radius: 10px; border: 1px solid #bbb; background: #fff; cursor: pointer; }
+    button:hover { background: #f2f2f2; }
+    .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin: 12px 0; }
+    input { padding: 10px 12px; border-radius: 10px; border: 1px solid #bbb; min-width: 240px; }
+    .out { white-space: pre-wrap; background: #0b1020; color: #e6e6e6; padding: 12px; border-radius: 10px; }
+    .hint { color: #555; font-size: 14px; }
+    .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
+    .srcwrap { margin-top: 12px; display:none; }
+    pre { background:#f7f7f7; padding: 12px; border-radius: 10px; overflow:auto; border:1px solid #e5e7eb; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Ejercicio 09 - indexOf()</h1>
+    <p><strong>Enunciado:</strong> Comprueba si el nombre escrito en el input está en el array <code>nombres</code> usando <code>indexOf()</code>. Si está, muestra su posición; si no, indica que no existe.</p>
+    <p class="hint">Pulsa <strong>Ejecutar</strong>. Después podrás mostrar el <strong>código fuente</strong> con el botón.</p>
+
+    <div class="row" id="ui"><label>Buscar nombre: <input id="q" placeholder="ej. Ana"></label></div>
+
+    <div class="actions">
+      <button id="run">Ejecutar</button>
+      <button id="showSrc" disabled>Código fuente</button>
+    </div>
+
+    <h2 style="font-size:16px;margin-top:16px;">Salida</h2>
+    <div id="output" class="out">(aquí aparecerá el resultado)</div>
+
+    <div id="srcwrap" class="srcwrap">
+      <h2 style="font-size:16px;margin-top:16px;">Código fuente del ejercicio</h2>
+      <pre><code id="srccode">function $(sel) { return document.querySelector(sel); }
+  function out(msg) { $(&quot;#output&quot;).textContent = String(msg); }
+
+
+function run() {
+  var nombres = [&quot;Ana&quot;, &quot;Luis&quot;, &quot;Carlos&quot;, &quot;Marta&quot;];
+  var q = $(&quot;#q&quot;).value;
+  q = String(q).trim();
+  if (q.length === 0) {
+    out(&quot;Escribe un nombre a buscar.&quot;);
+    return;
+  }
+  var pos = nombres.indexOf(q);
+  if (pos === -1) {
+    out(&quot;nombres = &quot; + nombres.join(&quot;, &quot;) + &quot;\n\&quot;&quot;+ q + &quot;\&quot; no existe en el array.&quot;);
+  } else {
+    out(&quot;nombres = &quot; + nombres.join(&quot;, &quot;) + &quot;\n\&quot;&quot;+ q + &quot;\&quot; está en la posición &quot; + pos + &quot;.&quot;);
+  }
+}
+
+$(&quot;#run&quot;).addEventListener(&quot;click&quot;, run);</code></pre>
+    </div>
+  </div>
+
+  <script>
+  "use strict";
+
+  function $(sel) { return document.querySelector(sel); }
+  function out(msg) { $("#output").textContent = String(msg); }
+
+  var hasRun = false;
+
+  function enableSourceButton() {
+    if (!hasRun) {
+      hasRun = true;
+      $("#showSrc").disabled = false;
+    }
+  }
+
+  function toggleSource() {
+    var wrap = $("#srcwrap");
+    if (wrap.style.display === "none" || wrap.style.display === "") {
+      wrap.style.display = "block";
+      $("#showSrc").textContent = "Ocultar código";
+    } else {
+      wrap.style.display = "none";
+      $("#showSrc").textContent = "Código fuente";
+    }
+  }
+
+  $("#showSrc").addEventListener("click", toggleSource);
+
+function $(sel) { return document.querySelector(sel); }
+  function out(msg) { $("#output").textContent = String(msg); }
+
+
+function run() {
+  var nombres = ["Ana", "Luis", "Carlos", "Marta"];
+  var q = $("#q").value;
+  q = String(q).trim();
+  if (q.length === 0) {
+    out("Escribe un nombre a buscar.");
+    return;
+  }
+  var pos = nombres.indexOf(q);
+  if (pos === -1) {
+    out("nombres = " + nombres.join(", ") + "\n\""+ q + "\" no existe en el array.");
+  } else {
+    out("nombres = " + nombres.join(", ") + "\n\""+ q + "\" está en la posición " + pos + ".");
+  }
+}
+
+$("#run").addEventListener("click", run);
+
+  // Enganchar: cuando se pulse Ejecutar, habilitar el botón de código
+  (function hookRunButton() {
+    var runBtn = $("#run");
+    if (!runBtn) return;
+    runBtn.addEventListener("click", function() {
+      enableSourceButton();
+    }, true);
+  })();
+
+  </script>
+</body>
+</html>

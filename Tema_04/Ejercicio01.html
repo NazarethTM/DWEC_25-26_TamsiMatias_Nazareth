@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejercicio 01</title>
+  </head>
+  <body>
+    <button onclick="VerDataArray">Ver datos</button>
+    <pre id="out"> </pre>
+    <script>
+      function VerDataArray() {
+        var frutas = ["manzana", "pera", "plátano", "kiwi"];
+        var primera = frutas[0];
+        var ultima = frutas[frutas.length - 1];
+        document.getElementById("output").textContent =
+          "frutas = " +
+          frutas.join(", ") +
+          "\nprimera = " +
+          primera +
+          "\núltima = " +
+          ultima +
+          "\nlength = " +
+          frutas.length;
+      }
+    </script>
+  </body>
+</html>

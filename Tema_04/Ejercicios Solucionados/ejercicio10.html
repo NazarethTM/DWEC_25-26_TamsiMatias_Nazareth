@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ejercicio 10 - Recorrer con for (suma)</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 24px; line-height: 1.4; }
+    .card { max-width: 900px; padding: 18px 20px; border: 1px solid #ddd; border-radius: 12px; background: #fff; }
+    h1 { font-size: 22px; margin: 0 0 10px; }
+    p { margin: 10px 0; }
+    button { padding: 10px 14px; border-radius: 10px; border: 1px solid #bbb; background: #fff; cursor: pointer; }
+    button:hover { background: #f2f2f2; }
+    .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin: 12px 0; }
+    input { padding: 10px 12px; border-radius: 10px; border: 1px solid #bbb; min-width: 240px; }
+    .out { white-space: pre-wrap; background: #0b1020; color: #e6e6e6; padding: 12px; border-radius: 10px; }
+    .hint { color: #555; font-size: 14px; }
+    .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
+    .srcwrap { margin-top: 12px; display:none; }
+    pre { background:#f7f7f7; padding: 12px; border-radius: 10px; overflow:auto; border:1px solid #e5e7eb; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Ejercicio 10 - Recorrer con for (suma)</h1>
+    <p><strong>Enunciado:</strong> Recorre el array <code>valores</code> con un <code>for</code> y calcula la suma total.</p>
+    <p class="hint">Pulsa <strong>Ejecutar</strong>. Después podrás mostrar el <strong>código fuente</strong> con el botón.</p>
+
+    <div class="row" id="ui"></div>
+
+    <div class="actions">
+      <button id="run">Ejecutar</button>
+      <button id="showSrc" disabled>Código fuente</button>
+    </div>
+
+    <h2 style="font-size:16px;margin-top:16px;">Salida</h2>
+    <div id="output" class="out">(aquí aparecerá el resultado)</div>
+
+    <div id="srcwrap" class="srcwrap">
+      <h2 style="font-size:16px;margin-top:16px;">Código fuente del ejercicio</h2>
+      <pre><code id="srccode">function $(sel) { return document.querySelector(sel); }
+  function out(msg) { $(&quot;#output&quot;).textContent = String(msg); }
+
+
+function run() {
+  var valores = [3, 7, 2, 9];
+  var suma = 0;
+  for (var i = 0; i &lt; valores.length; i++) {
+    suma = suma + valores[i];
+  }
+  out(&quot;valores = &quot; + valores.join(&quot;, &quot;) + &quot;\nsuma = &quot; + suma);
+}
+
+$(&quot;#run&quot;).addEventListener(&quot;click&quot;, run);</code></pre>
+    </div>
+  </div>
+
+  <script>
+  "use strict";
+
+  function $(sel) { return document.querySelector(sel); }
+  function out(msg) { $("#output").textContent = String(msg); }
+
+  var hasRun = false;
+
+  function enableSourceButton() {
+    if (!hasRun) {
+      hasRun = true;
+      $("#showSrc").disabled = false;
+    }
+  }
+
+  function toggleSource() {
+    var wrap = $("#srcwrap");
+    if (wrap.style.display === "none" || wrap.style.display === "") {
+      wrap.style.display = "block";
+      $("#showSrc").textContent = "Ocultar código";
+    } else {
+      wrap.style.display = "none";
+      $("#showSrc").textContent = "Código fuente";
+    }
+  }
+
+  $("#showSrc").addEventListener("click", toggleSource);
+
+function $(sel) { return document.querySelector(sel); }
+  function out(msg) { $("#output").textContent = String(msg); }
+
+
+function run() {
+  var valores = [3, 7, 2, 9];
+  var suma = 0;
+  for (var i = 0; i < valores.length; i++) {
+    suma = suma + valores[i];
+  }
+  out("valores = " + valores.join(", ") + "\nsuma = " + suma);
+}
+
+$("#run").addEventListener("click", run);
+
+  // Enganchar: cuando se pulse Ejecutar, habilitar el botón de código
+  (function hookRunButton() {
+    var runBtn = $("#run");
+    if (!runBtn) return;
+    runBtn.addEventListener("click", function() {
+      enableSourceButton();
+    }, true);
+  })();
+
+  </script>
+</body>
+</html>

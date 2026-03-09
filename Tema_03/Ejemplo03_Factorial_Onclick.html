@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Factorial con función externa</title>
+  </head>
+  <body>
+    <h1>Factorial</h1>
+    <input id="n" type="number" placeholder="Entero >= 0" />
+    <button id="btnCalcular">Calcular</button>
+    <pre id="out"></pre>
+    <script>
+      // Esperamos a que el DOM esté listo
+      document.addEventListener("DOMContentLoaded", iniciar);
+      // Función de inicialización
+      function iniciar() {
+        const boton = document.getElementById("btnCalcular");
+        boton.addEventListener("click", calcularFactorial);
+      }
+      // Función externa que maneja el evento 
+      function calcularFactorial() {
+        const input = document.getElementById("n");
+        const salida = document.getElementById("out");
+        let n = Number(input.value);
+        // Validación
+        if (!Number.isInteger(n) || n < 0) {
+          salida.textContent = "Error: entero >= 0";
+          return;
+        }
+        // Cálculo
+        let f = 1;
+        for (let i = 1; i <= n; i++) {
+          f *= i;
+        }
+        // Mostrar resultado
+        salida.textContent = `${n}! = ${f}`;
+      }
+    </script>
+  </body>
+</html>

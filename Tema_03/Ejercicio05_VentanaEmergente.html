@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejercicio 05: Ventana emergente</title>
+  </head>
+  <body>
+    <!-- El objetivo del ejercicio es crear una ventana emergente (popup) que se pueda mover, redimensionar y cerrar desde la
+ventana principal. También, la ventana debe estar centrada en la pantalla cuando se abre y debe cambiar su tamaño
+dependiendo del tamaño de la pantalla disponible.
+Requisitos:
+1. Crear una ventana emergente (popup) con un tamaño proporcional a la pantalla del usuario (usando window.open).
+2. Centrar la ventana emergente en la pantalla utilizando las propiedades de tamaño y posición de la ventana
+(screen.width, screen.height).
+3. Mover la ventana emergente con un botón de la ventana principal (usando moveTo o moveBy).
+4. Redimensionar la ventana emergente con un botón (usando resizeTo o resizeBy).
+5. Cerrar la ventana emergente con otro botón (usando close). y explica para tontos-->
+
+    <button onclick="abrirVentana()">Abrir Ventana Emergente</button>
+    <button onclick="ventanaEmergente.close()">Cerrar Ventana Emergente</button>
+
+    <script>
+      let ventanaEmergente;
+
+      function abrirVentana() {
+        const ancho = window.screen.width * 0.5; // 50% del ancho de la pantalla
+        const alto = window.screen.height * 0.5; // 50% del alto de la pantalla
+        const izquierda = (window.screen.width - ancho) / 2; // Centrar horizontalmente
+        const arriba = (window.screen.height - alto) / 2; // Centrar verticalmente
+
+        ventanaEmergente = window.open(
+          "",
+          "Ventana Emergente",
+          `width=${ancho},height=${alto},left=${izquierda},top=${arriba}`,
+        );
+        ventanaEmergente.document.write(
+          "<h1>¡Hola desde la ventana emergente!</h1>",
+        );
+        ventanaEmergente.document.write(
+          "<button onclick='window.moveBy(20, 20)'>Mover</button>",
+        );
+        ventanaEmergente.document.write(
+          "<button onclick='window.resizeBy(20, 20)'>Redimensionar</button>",
+        );
+        ventanaEmergente.document.write(
+          "<button onclick='window.close()'>Cerrar</button>",
+        );
+      }
+    </script>
+  </body>
+</html>

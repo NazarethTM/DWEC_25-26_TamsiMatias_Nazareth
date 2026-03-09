@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>12 Factorial</title>
+  </head>
+  <body>
+    <h1>Factorial</h1>
+    <input id="n" type="number" placeholder="Entero >= 0" />
+    <button onclick="fact()">Calcular</button>
+    <pre id="out"></pre>
+    <script>
+      function fact() {
+        let n = Number(document.getElementById("n").value);
+        if (!Number.isInteger(n) || n < 0) {
+          document.getElementById("out").textContent = "Error: entero >= 0";
+          return;
+        }
+        let f = 1;
+        for (let i = 1; i <= n; i++) f *= i;
+        document.getElementById("out").textContent = n + "! = " + f;
+      }
+    </script>
+  </body>
+</html>

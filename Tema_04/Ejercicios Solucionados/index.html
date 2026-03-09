@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Índice - Ejercicios Arrays JavaScript</title>
+  <style>
+    :root { --blue:#1e3a8a; --bg:#f4f6f9; --card:#ffffff; --border:#d6dbe6; }
+    body { font-family: Arial, sans-serif; margin: 28px; background: var(--bg); color:#111; }
+    header { max-width: 980px; margin: 0 auto 18px; }
+    h1 { color: var(--blue); margin: 0 0 8px; }
+    .subtitle { margin: 0; color:#334155; }
+    .container { max-width: 980px; margin: 0 auto; }
+    .block {
+      background: #eef2ff;
+      border: 1px solid #c7d2fe;
+      padding: 14px 16px;
+      border-radius: 14px;
+      margin: 18px 0 12px;
+    }
+    .block h2 { margin: 0 0 6px; color: var(--blue); font-size: 18px; }
+    .block p { margin: 0; color:#334155; }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    @media (min-width: 820px) { .grid { grid-template-columns: 1fr 1fr; } }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+    }
+    .row { display:flex; align-items:flex-start; justify-content:space-between; gap: 10px; }
+    .title { font-weight: 700; }
+    .badges { display:flex; gap: 8px; flex-wrap: wrap; justify-content:flex-end; }
+    .badge {
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #0f172a;
+      white-space: nowrap;
+    }
+    .icons { font-size: 16px; }
+    .stmt { margin: 10px 0 12px; color:#0f172a; }
+    a.btn {
+      display:inline-block;
+      padding: 9px 12px;
+      background:#e0e7ff;
+      border-radius: 10px;
+      text-decoration:none;
+      color:#111;
+      border:1px solid var(--blue);
+      font-weight:700;
+    }
+    a.btn:hover { background:#c7d2fe; }
+    footer { max-width: 980px; margin: 18px auto 0; color:#475569; font-size: 13px; }
+    .legend { display:flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Índice de Ejercicios - Arrays en JavaScript</h1>
+    <p class="subtitle">15 ejercicios (HTML + JavaScript). Organizados por bloques, con nivel de dificultad e iconos.</p>
+    <div class="legend">
+      <span class="badge">Dificultad: ★☆☆ (fácil) · ★★☆ (media) · ★★★ (algo más)</span>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <section class="block">
+      <h2>🧱 Básicos</h2>
+      <p>Creación, acceso y operaciones esenciales (push/pop/shift/unshift).</p>
+    </section>
+    <div class="grid">
+
+      <div class="card">
+        <div class="row">
+          <div class="title">Ejercicio 01</div>
+          <div class="badges">
+            <span class="badge">Dificultad: ★☆☆</span>
+            <span class="badge icons">🧺 🔎</span>
+          </div>
+        </div>
+        <p class="stmt">Crea un array llamado <code>frutas</code> con 4 frutas. Muestra la primera y la última (usando índices) y el total de elementos.</p>
+        <a class="btn" href="ejercicio01.html">Abrir ejercicio</a>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div class="title">Ejercicio 02</div>
+          <div class="badges">
+            <span class="badge">Dificultad: ★☆☆</span>
+            <span class="badge icons">✏️ 📌</span>
+          </div>
+        </div>
+        <p class="stmt">Dado el array <code>notas</code>, cambia la nota del segundo elemento a 10 y muestra el array antes y después.</p>
+        <a class="btn" href="ejercicio02.html">Abrir ejercicio</a>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div class="title">Ejercicio 03</div>
+          <div class="badges">
+            <span class="badge">Dificultad: ★☆☆</span>
+            <span class="badge icons">➕ 🛒</span>
+          </div>
+        </div>
+        <p class="stmt">Dado el array <code>carrito</code>, añade al final el producto escrito en el input usando <code>push()</code>.</p>
+        <a class="btn" href="ejercicio03.html">Abrir ejercicio</a>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div class="title">Ejercicio 04</div>
+          <div class="badges">
+            <span class="badge">Dificultad: ★☆☆</span>
+            <span class="badge icons">➖ 🧹</span>
+          </div>
+        </div>
+        <p class="stmt">Dado el array <code>tareas</code>, elimina el último elemento con <code>pop()</code> y muestra el elemento eliminado y el array final.</p>
+        <a class="btn" href="ejercicio04.html">Abrir ejercicio</a>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div class="title">Ejercicio 05</div>
+          <div class="badges">
+            <span class="badge">Dificultad: ★☆☆</span>
+            <span class="badge icons">⬆️ ⬇️</span>
+          </div>
+        </div>
+        <p class="stmt">Dado el array <code>cola</code>, añade una persona al inicio con <code>unshift()</code> (desde el input) y luego elimina la primera con <code>shift()</code>. Muestra resultados.</p>
+        <a class="btn" href="ejercicio05.html">Abrir ejercicio</a>
+      </div>
+
+    </div>
+
+    <section class="block">
+      <h2>🔧 Intermedios</h2>
+      <p>Operaciones con posiciones, búsqueda y recorridos con for.</p>
+    </section>
+    <div class="grid">
+
+      <div class="card">
+        <div class="row">
+          <div class="title">Ejercicio 06</div>
+          <div class="badges">
+            <span class="badge">Dificultad: ★★☆</span>
+            <span class="badge icons">🧩 📍</span>
+          </div>
+        </div>
+        <p class="stmt">Inserta el valor <code>99</code> en la posición 2 del array <code>nums</code> usando <code>splice()</code> sin borrar nada.</p>
+        <a class="btn" href="ejercicio06.html">Abrir ejercicio</a>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div class="title">Ejercicio 07</div>
+          <div class="badges">
+            <span class="badge">Dificultad: ★★☆</span>
+            <span class="badge icons">✂️ 🗑️</span>
+          </div>
+        </div>
+        <p class="stmt">Elimina 2 elementos empezando en la posición 1 del array <code>letras</code> usando <code>splice()</code>. Muestra lo eliminado y el array final.</p>
+        <a class="btn" href="ejercicio07.html">Abrir ejercicio</a>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div class="title">Ejercicio 08</div>
+          <div class="badges">
+            <span class="badge">Dificultad: ★★☆</span>
+            <span class="badge icons">📄 🧷</span>
+          </div>
+        </div>
+        <p class="stmt">Crea un nuevo array <code>sub</code> con los 3 primeros elementos de <code>numeros</code> usando <code>slice()</code>.</p>
+        <a class="btn" href="ejercicio08.html">Abrir ejercicio</a>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div class="title">Ejercicio 09</div>
+          <div class="badges">
+            <span class="badge">Dificultad: ★★☆</span>
+            <span class="badge icons">🔍 📍</span>
+          </div>
+        </div>
+        <p class="stmt">Comprueba si el nombre escrito en el input está en el array <code>nombres</code> usando <code>indexOf()</code>. Si está, muestra su posición; si no, indica que no existe.</p>
+        <a class="btn" href="ejercicio09.html">Abrir ejercicio</a>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div class="title">Ejercicio 10</div>
+          <div class="badges">
+            <span class="badge">Dificultad: ★★☆</span>
+            <span class="badge icons">🔁 ➕</span>
+          </div>
+        </div>
+        <p class="stmt">Recorre el array <code>valores</code> con un <code>for</code> y calcula la suma total.</p>
+        <a class="btn" href="ejercicio10.html">Abrir ejercicio</a>
+      </div>
+
+    </div>
+
+    <section class="block">
+      <h2>🧠 Funcionales</h2>
+      <p>Recorridos con forEach y métodos map/filter/reduce + utilidades.</p>
+    </section>
+    <div class="grid">
+
+      <div class="card">
+        <div class="row">
+          <div class="title">Ejercicio 11</div>
+          <div class="badges">
+            <span class="badge">Dificultad: ★★★</span>
+            <span class="badge icons">🔁 🔤</span>
+          </div>
+        </div>
+        <p class="stmt">Recorre el array <code>ciudades</code> con <code>forEach()</code> y construye un string con todas en mayúsculas, una por línea.</p>
+        <a class="btn" href="ejercicio11.html">Abrir ejercicio</a>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div class="title">Ejercicio 12</div>
+          <div class="badges">
+            <span class="badge">Dificultad: ★★★</span>
+            <span class="badge icons">🗺️ ✖️</span>
+          </div>
+        </div>
+        <p class="stmt">Usa <code>map()</code> para crear un nuevo array con los cuadrados de <code>nums</code>.</p>
+        <a class="btn" href="ejercicio12.html">Abrir ejercicio</a>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div class="title">Ejercicio 13</div>
+          <div class="badges">
+            <span class="badge">Dificultad: ★★★</span>
+            <span class="badge icons">🧹 ✅</span>
+          </div>
+        </div>
+        <p class="stmt">Usa <code>filter()</code> para quedarte solo con los números pares del array <code>nums</code>.</p>
+        <a class="btn" href="ejercicio13.html">Abrir ejercicio</a>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div class="title">Ejercicio 14</div>
+          <div class="badges">
+            <span class="badge">Dificultad: ★★★</span>
+            <span class="badge icons">🧮 ➕</span>
+          </div>
+        </div>
+        <p class="stmt">Usa <code>reduce()</code> para calcular la suma total del array <code>nums</code>.</p>
+        <a class="btn" href="ejercicio14.html">Abrir ejercicio</a>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div class="title">Ejercicio 15</div>
+          <div class="badges">
+            <span class="badge">Dificultad: ★★★</span>
+            <span class="badge icons">🏁 ↕️</span>
+          </div>
+        </div>
+        <p class="stmt">Obtén el valor máximo del array <code>nums</code> y crea un nuevo array ordenado de menor a mayor sin modificar el original.</p>
+        <a class="btn" href="ejercicio15.html">Abrir ejercicio</a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <footer>
+    Sugerencia: abre <strong>index.html</strong> desde la carpeta descomprimida para navegar entre ejercicios.
+  </footer>
+</body>
+</html>
