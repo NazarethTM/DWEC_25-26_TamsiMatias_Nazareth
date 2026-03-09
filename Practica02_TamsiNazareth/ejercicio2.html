@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ejercicio 2 - Analizador de contraseñas</title>
+
+    <style>
+      body {
+        font-family: Arial;
+        margin: 20px;
+      }
+
+      button {
+        padding: 10px;
+        margin: 10px 0;
+      }
+
+      table {
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      td,
+      th {
+        border: 1px solid #ccc;
+        padding: 8px;
+      }
+
+      th {
+        background: #eee;
+      }
+
+      #resultado {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Analizador de contraseñas</h1>
+
+    <p>
+      Este ejercicio analiza varias contraseñas y calcula su nivel de seguridad.
+    </p>
+
+    <button onclick="pedirPasswords()">Pedir contraseñas</button>
+
+    <div id="resultado"></div>
+
+    <script>
+      function pedirPasswords() {
+        let datos = prompt(
+          "Introduce contraseñas separadas por comas.\nEjemplo: hola123, P@ssw0rd!, AAAA1111",
+        );
+
+        if (datos === null) {
+          return;
+        }
+
+        analizar(datos);
+      }
+
+      function analizar(datos) {
+        let bruto = datos.split(",");
+
+        let pws = [];
+
+        // limpiar espacios y eliminar vacíos
+        for (let i = 0; i < bruto.length; i++) {
+          let pw = bruto[i].trim();
+
+          if (pw !== "") {
+            pws.push(pw);
+          }
+        }
+
+        if (pws.length === 0) {
+          document.getElementById("resultado").innerHTML =
+            "No se han introducido contraseñas";
+          return;
+        }
+
+        let scores = [];
+        let niveles = [];
+        let sugerencias = [];
+
+        for (let i = 0; i < pws.length; i++) {
+          let pw = pws[i];
+
+          let score = 0;
+
+          let sug = "";
+
+          // longitud
+          score += Math.min(pw.length * 2, 30);
+
+          // variedad de caracteres
+          let clases = 0;
+
+          if (/[a-z]/.test(pw)) clases++;
+          if (/[A-Z]/.test(pw)) clases++;
+          if (/[0-9]/.test(pw)) clases++;
+          if (/[^a-zA-Z0-9]/.test(pw)) clases++;
+
+          score += clases * 10;
+
+          // sugerencias por clases que faltan
+          if (!/[A-Z]/.test(pw)) sug += " añadir mayúsculas;";
+          if (!/[a-z]/.test(pw)) sug += " añadir minúsculas;";
+          if (!/[0-9]/.test(pw)) sug += " añadir números;";
+          if (!/[^a-zA-Z0-9]/.test(pw)) sug += " añadir símbolos;";
+
+          // repeticiones consecutivas
+          let rep = 0;
+
+          for (let j = 1; j < pw.length; j++) {
+            if (pw[j] == pw[j - 1]) {
+              rep++;
+            }
+          }
+
+          score -= Math.min(rep * 3, 15);
+
+          if (rep > 2) {
+            sug += " demasiadas repeticiones;";
+          }
+
+          // patrones débiles
+          if (/(1234|123456|qwerty|password|admin)/i.test(pw)) {
+            score -= 20;
+            sug += " contiene patrón débil;";
+          }
+
+          // bonus seguridad
+          if (pw.length >= 10 && clases >= 3) {
+            score += 10;
+          }
+
+          // limitar score
+          score = Math.max(0, Math.min(score, 100));
+
+          // nivel
+          let nivel = "";
+
+          if (score < 30) nivel = "Débil";
+          else if (score < 60) nivel = "Media";
+          else if (score < 80) nivel = "Buena";
+          else nivel = "Fuerte";
+
+          scores.push(score);
+          niveles.push(nivel);
+          sugerencias.push(sug);
+        }
+
+        // crear índice
+        let idx = [];
+
+        for (let i = 0; i < pws.length; i++) {
+          idx.push(i);
+        }
+
+        // ordenar por score
+        idx.sort(function (a, b) {
+          return scores[b] - scores[a];
+        });
+
+        // estadísticas
+        let suma = 0;
+        let max = scores[0];
+        let min = scores[0];
+
+        for (let i = 0; i < scores.length; i++) {
+          suma += scores[i];
+
+          if (scores[i] > max) max = scores[i];
+          if (scores[i] < min) min = scores[i];
+        }
+
+        let media = (suma / scores.length).toFixed(2);
+
+        // tabla resultado
+        let html = "";
+
+        html += "<h3>Resumen</h3>";
+        html += "Total contraseñas: " + pws.length + "<br>";
+        html += "Media: " + media + "<br>";
+        html += "Máximo: " + max + "<br>";
+        html += "Mínimo: " + min + "<br>";
+
+        html += "<table>";
+        html +=
+          "<tr><th>Ranking</th><th>Contraseña</th><th>Score</th><th>Nivel</th><th>Sugerencias</th></tr>";
+
+        for (let i = 0; i < idx.length; i++) {
+          let k = idx[i];
+
+          let pw = pws[k].replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+          html += "<tr>";
+          html += "<td>" + (i + 1) + "</td>";
+          html += "<td>" + pw + "</td>";
+          html += "<td>" + scores[k] + "</td>";
+          html += "<td>" + niveles[k] + "</td>";
+          html += "<td>" + sugerencias[k] + "</td>";
+          html += "</tr>";
+        }
+
+        html += "</table>";
+
+        document.getElementById("resultado").innerHTML = html;
+      }
+    </script>
+  </body>
+</html>

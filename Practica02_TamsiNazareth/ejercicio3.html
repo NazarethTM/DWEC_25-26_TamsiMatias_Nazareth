@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ejercicio 3 - Planificador de eventos</title>
+
+    <style>
+      body {
+        font-family: Arial;
+        margin: 20px;
+      }
+
+      button {
+        padding: 10px;
+      }
+
+      table {
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      td,
+      th {
+        border: 1px solid #ccc;
+        padding: 8px;
+      }
+
+      th {
+        background: #eee;
+      }
+
+      #resultado {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Planificador de eventos</h1>
+
+    <p>Introduce eventos con formato Nombre|YYYY-MM-DD</p>
+
+    <button onclick="pedirEventos()">Pedir eventos</button>
+
+    <div id="resultado"></div>
+
+    <script>
+      function pedirEventos() {
+        let datos = prompt(
+          "Introduce eventos separados por comas.\nEjemplo: Examen|2026-06-10, Cumpleaños|2026-05-01",
+        );
+
+        if (datos === null) {
+          return;
+        }
+
+        analizarEventos(datos);
+      }
+
+      function analizarEventos(datos) {
+        let bruto = datos.split(",");
+
+        let nombres = [];
+        let fechas = [];
+        let diasRest = [];
+        let estados = [];
+
+        // fecha de hoy a medianoche
+        let hoy = new Date();
+        hoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
+
+        let ms_dia = 1000 * 60 * 60 * 24;
+
+        for (let i = 0; i < bruto.length; i++) {
+          let item = bruto[i].trim();
+
+          if (item === "") {
+            continue;
+          }
+
+          let partes = item.split("|");
+
+          if (partes.length != 2) {
+            nombres.push(item);
+            fechas.push("-");
+            diasRest.push(Infinity);
+            estados.push("ERROR");
+            continue;
+          }
+
+          let nombre = partes[0].trim();
+          let fechaTxt = partes[1].trim();
+
+          // validar formato fecha
+          let re = /^\d{4}-\d{2}-\d{2}$/;
+
+          if (!re.test(fechaTxt)) {
+            nombres.push(nombre);
+            fechas.push(fechaTxt);
+            diasRest.push(Infinity);
+            estados.push("ERROR");
+            continue;
+          }
+
+          let partesFecha = fechaTxt.split("-");
+
+          let y = parseInt(partesFecha[0]);
+          let m = parseInt(partesFecha[1]);
+          let d = parseInt(partesFecha[2]);
+
+          let fecha = new Date(y, m - 1, d);
+
+          // comprobar que la fecha exista
+          if (
+            fecha.getFullYear() != y ||
+            fecha.getMonth() != m - 1 ||
+            fecha.getDate() != d
+          ) {
+            nombres.push(nombre);
+            fechas.push(fechaTxt);
+            diasRest.push(Infinity);
+            estados.push("ERROR");
+            continue;
+          }
+
+          let dias = Math.floor((fecha - hoy) / ms_dia);
+
+          let estado = "";
+
+          if (dias < 0) estado = "PASADO";
+          else if (dias == 0) estado = "HOY";
+          else if (dias <= 7) estado = "SEMANA";
+          else if (dias <= 30) estado = "MES";
+          else estado = "TARDE";
+
+          nombres.push(nombre);
+          fechas.push(fechaTxt);
+          diasRest.push(dias);
+          estados.push(estado);
+        }
+
+        // crear índice
+        let idx = [];
+
+        for (let i = 0; i < nombres.length; i++) {
+          idx.push(i);
+        }
+
+        // ordenar por días restantes
+        idx.sort(function (a, b) {
+          return diasRest[a] - diasRest[b];
+        });
+
+        // TOP 3 próximos
+        let top = [];
+
+        for (let i = 0; i < idx.length; i++) {
+          let k = idx[i];
+
+          if (estados[k] != "ERROR" && estados[k] != "PASADO") {
+            top.push(k);
+          }
+
+          if (top.length == 3) {
+            break;
+          }
+        }
+
+        // resumen estados
+        let conteo = {
+          PASADO: 0,
+          HOY: 0,
+          SEMANA: 0,
+          MES: 0,
+          TARDE: 0,
+          ERROR: 0,
+        };
+
+        for (let i = 0; i < estados.length; i++) {
+          if (conteo[estados[i]] != undefined) {
+            conteo[estados[i]]++;
+          }
+        }
+
+        // tabla
+        let html = "";
+
+        html += "<h3>Fecha actual</h3>";
+        html += hoy.toISOString().slice(0, 10);
+
+        html += "<h3>Top 3 próximos eventos</h3>";
+
+        if (top.length == 0) {
+          html += "No hay eventos próximos<br>";
+        } else {
+          html += "<ul>";
+
+          for (let i = 0; i < top.length; i++) {
+            let k = top[i];
+
+            let nombre = nombres[k].replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+            html += "<li>" + nombre + " (" + fechas[k] + ")</li>";
+          }
+
+          html += "</ul>";
+        }
+
+        html += "<h3>Tabla completa</h3>";
+
+        html += "<table>";
+        html +=
+          "<tr><th>Evento</th><th>Fecha</th><th>Días restantes</th><th>Estado</th></tr>";
+
+        for (let i = 0; i < idx.length; i++) {
+          let k = idx[i];
+
+          let nombre = nombres[k].replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+          html += "<tr>";
+          html += "<td>" + nombre + "</td>";
+          html += "<td>" + fechas[k] + "</td>";
+          html +=
+            "<td>" + (diasRest[k] == Infinity ? "-" : diasRest[k]) + "</td>";
+          html += "<td>" + estados[k] + "</td>";
+          html += "</tr>";
+        }
+
+        html += "</table>";
+
+        html += "<h3>Resumen por estados</h3>";
+
+        html += "PASADO: " + conteo.PASADO + "<br>";
+        html += "HOY: " + conteo.HOY + "<br>";
+        html += "SEMANA: " + conteo.SEMANA + "<br>";
+        html += "MES: " + conteo.MES + "<br>";
+        html += "TARDE: " + conteo.TARDE + "<br>";
+        html += "ERROR: " + conteo.ERROR + "<br>";
+
+        document.getElementById("resultado").innerHTML = html;
+      }
+    </script>
+  </body>
+</html>

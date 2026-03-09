@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Práctica final DWEC - Tipos de datos y Arrays</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 24px;
+        line-height: 1.35;
+      }
+      header {
+        padding: 14px 16px;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        background: #fff;
+        max-width: 980px;
+      }
+      h1 {
+        margin: 0 0 6px;
+        font-size: 22px;
+      }
+      .meta {
+        color: #555;
+        margin: 0;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 14px;
+        max-width: 980px;
+        margin-top: 14px;
+      }
+      .card {
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        padding: 14px 16px;
+        background: #fff;
+      }
+      .card h2 {
+        margin: 0 0 8px;
+        font-size: 16px;
+      }
+      .tag {
+        display: inline-block;
+        border: 1px solid #bbb;
+        border-radius: 999px;
+        padding: 2px 8px;
+        font-size: 12px;
+        margin-right: 6px;
+      }
+      a.btn {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 12px;
+        border: 1px solid #bbb;
+        border-radius: 10px;
+        text-decoration: none;
+        color: #111;
+        background: #fff;
+      }
+      a.btn:hover {
+        background: #f2f2f2;
+      }
+      ul {
+        margin: 8px 0 0 18px;
+      }
+      code {
+        background: #f4f4f4;
+        padding: 2px 5px;
+        border-radius: 4px;
+      }
+      footer {
+        max-width: 980px;
+        color: #666;
+        margin-top: 16px;
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Práctica final (Dificultad media-alta)</h1>
+      <p class="meta">
+        4 ejercicios integrando <strong>String</strong>, <strong>Math</strong>,
+        <strong>Number</strong>, <strong>Date</strong>,
+        <strong>Expresiones regulares</strong> y <strong>Arrays</strong>. Cada
+        ejercicio usa botones con <code>onclick</code>.
+      </p>
+    </header>
+    <section class="grid">
+      <article class="card">
+        <h2>1) Validación y normalización de matrículas</h2>
+        <div>
+          <span class="tag">Regex</span><span class="tag">String</span
+          ><span class="tag">Array</span><span class="tag">Date</span>
+        </div>
+        <ul>
+          <li>Pide una lista de matrículas (separadas por comas).</li>
+          <li>
+            Normaliza (mayúsculas, quita espacios/guiones) y valida con RegExp.
+          </li>
+          <li>
+            Elimina duplicados, ordena, genera resumen y marca fecha/hora de
+            ejecución.
+          </li>
+        </ul>
+        <a class="btn" href="ejercicio1.html">Abrir ejercicio 1</a>
+      </article>
+      <article class="card">
+        <h2>2) Analizador de contraseñas y ranking</h2>
+        <div>
+          <span class="tag">Regex</span><span class="tag">String</span
+          ><span class="tag">Math</span><span class="tag">Array</span>
+        </div>
+        <ul>
+          <li>Pide varias contraseñas en una sola entrada.</li>
+          <li>
+            Puntúa fortaleza (longitud, variedad, repetición, patrones débiles).
+          </li>
+          <li>Devuelve ranking, estadísticas y sugerencias automáticas.</li>
+        </ul>
+        <a class="btn" href="ejercicio2.html">Abrir ejercicio 2</a>
+      </article>
+      <article class="card">
+        <h2>3) Planificador de eventos (fechas) y alertas</h2>
+        <div>
+          <span class="tag">Date</span><span class="tag">Number</span
+          ><span class="tag">Array</span><span class="tag">String</span>
+        </div>
+        <ul>
+          <li>Pide eventos con formato: <code>Nombre|YYYY-MM-DD</code>.</li>
+          <li>Valida fechas, calcula días restantes y agrupa por urgencia.</li>
+          <li>Muestra tabla y un “top 3” de eventos más próximos.</li>
+        </ul>
+        <a class="btn" href="ejercicio3.html">Abrir ejercicio 3</a>
+      </article>
+      <article class="card">
+        <h2>4) Estadística de notas + limpieza de datos</h2>
+        <div>
+          <span class="tag">Number</span><span class="tag">Math</span
+          ><span class="tag">Regex</span><span class="tag">Array</span>
+        </div>
+        <ul>
+          <li>Entrada “sucia” con texto, %, separadores…</li>
+          <li>Extrae números con RegExp, valida 0–10 y redondea.</li>
+          <li>Media, mediana, moda, desviación típica y percentiles.</li>
+        </ul>
+        <a class="btn" href="ejercicio4.html">Abrir ejercicio 4</a>
+      </article>
+    </section>
+    <footer>
+      Recomendación: abrir el índice y ejecutar cada ejercicio. Los botones usan
+      <code>prompt()</code> para pedir datos.
+    </footer>
+  </body>
+</html>

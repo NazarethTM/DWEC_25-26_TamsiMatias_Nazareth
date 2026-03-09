@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ejercicio 1 - Matrículas</title>
+
+    <style>
+      body {
+        font-family: Arial;
+        margin: 20px;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      button {
+        padding: 10px;
+        margin: 5px;
+      }
+
+      #resultado {
+        margin-top: 20px;
+        border: 1px solid #ccc;
+        padding: 15px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Validación de matrículas</h1>
+
+    <p>Este ejercicio pide varias matrículas y las analiza.</p>
+
+    <button onclick="pedirDatos()">Pedir datos</button>
+
+    <div id="resultado"></div>
+
+    <script>
+      /*
+Variable global donde guardaré lo que introduzca el usuario
+*/
+      let datos = "";
+
+      function pedirDatos() {
+        datos = prompt(
+          "Introduce matrículas separadas por comas.\nEjemplo: 1234 ABC, 5678-DEF, 1234abc",
+        );
+
+        if (datos === null) {
+          alert("Operación cancelada");
+          return;
+        }
+
+        procesarDatos();
+      }
+
+      function normalizar(texto) {
+        // quitar espacios al principio y final
+        texto = texto.trim();
+
+        // pasar a mayúsculas
+        texto = texto.toUpperCase();
+
+        // eliminar espacios y guiones
+        texto = texto.replace(/ /g, "");
+        texto = texto.replace(/-/g, "");
+
+        return texto;
+      }
+
+      function procesarDatos() {
+        let bruto = datos.split(",");
+
+        let normalizadas = [];
+
+        // normalizar todas
+        for (let i = 0; i < bruto.length; i++) {
+          let mat = normalizar(bruto[i]);
+
+          if (mat !== "") {
+            normalizadas.push(mat);
+          }
+        }
+
+        /*
+    eliminar duplicados sin usar Set
+    */
+        let unicos = [];
+
+        for (let i = 0; i < normalizadas.length; i++) {
+          let existe = false;
+
+          for (let j = 0; j < unicos.length; j++) {
+            if (normalizadas[i] === unicos[j]) {
+              existe = true;
+            }
+          }
+
+          if (!existe) {
+            unicos.push(normalizadas[i]);
+          }
+        }
+
+        let validas = [];
+        let invalidas = [];
+        let revisar = [];
+
+        let re = /^[0-9]{4}[A-Z]{3}$/;
+        let reVocal = /[AEIOU]/;
+
+        for (let i = 0; i < unicos.length; i++) {
+          let mat = unicos[i];
+
+          if (re.test(mat)) {
+            validas.push(mat);
+
+            let letras = mat.slice(4);
+
+            if (reVocal.test(letras)) {
+              revisar.push(mat);
+            }
+          } else {
+            invalidas.push(mat);
+          }
+        }
+
+        validas.sort();
+        invalidas.sort();
+
+        /*
+    Conteo por última letra
+    */
+
+        let conteo = {};
+
+        for (let i = 0; i < validas.length; i++) {
+          let letra = validas[i].charAt(validas[i].length - 1);
+
+          if (conteo[letra]) {
+            conteo[letra]++;
+          } else {
+            conteo[letra] = 1;
+          }
+        }
+
+        let textoConteo = "";
+
+        for (let letra in conteo) {
+          textoConteo += letra + " : " + conteo[letra] + "<br>";
+        }
+
+        /*
+    Fecha y hora actual
+    */
+
+        let ahora = new Date();
+
+        let fecha =
+          ahora.getFullYear() +
+          "-" +
+          String(ahora.getMonth() + 1).padStart(2, "0") +
+          "-" +
+          String(ahora.getDate()).padStart(2, "0") +
+          " " +
+          String(ahora.getHours()).padStart(2, "0") +
+          ":" +
+          String(ahora.getMinutes()).padStart(2, "0") +
+          ":" +
+          String(ahora.getSeconds()).padStart(2, "0");
+
+        /*
+    Mostrar resultados
+    */
+
+        let salida = "";
+
+        salida += "<h3>Fecha de ejecución</h3>";
+        salida += fecha;
+
+        salida += "<h3>Resumen</h3>";
+        salida += "Total válidas: " + validas.length + "<br>";
+        salida += "Total inválidas: " + invalidas.length + "<br>";
+        salida += "A revisar: " + revisar.length + "<br>";
+
+        salida += "<h3>Matrículas válidas</h3>";
+        salida += validas.join(", ");
+
+        salida += "<h3>Matrículas inválidas</h3>";
+        salida += invalidas.join(", ");
+
+        salida += "<h3>Matrículas a revisar</h3>";
+        salida += revisar.join(", ");
+
+        salida += "<h3>Conteo por última letra</h3>";
+        salida += textoConteo;
+
+        document.getElementById("resultado").innerHTML = salida;
+      }
+    </script>
+  </body>
+</html>

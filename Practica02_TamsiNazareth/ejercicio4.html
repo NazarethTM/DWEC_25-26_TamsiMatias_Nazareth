@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ejercicio 4 - Estadística de notas</title>
+
+    <style>
+      body {
+        font-family: Arial;
+        margin: 20px;
+      }
+
+      button {
+        padding: 10px;
+      }
+
+      table {
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      td,
+      th {
+        border: 1px solid #ccc;
+        padding: 8px;
+      }
+
+      th {
+        background: #eee;
+      }
+
+      #resultado {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Estadística de notas</h1>
+
+    <p>
+      Introduce un texto con números mezclados (ej: "notas: 7, 8.5, aprobado 6,
+      suspenso 3")
+    </p>
+
+    <button onclick="pedirDatos()">Pedir datos</button>
+
+    <div id="resultado"></div>
+
+    <script>
+      function pedirDatos() {
+        let texto = prompt("Introduce texto con notas mezcladas");
+
+        if (texto === null) {
+          return;
+        }
+
+        analizar(texto);
+      }
+
+      function analizar(texto) {
+        // extraer números con regex
+        let coincidencias = texto.match(/-?\d+(?:[.,]\d+)?/g);
+
+        if (!coincidencias) {
+          document.getElementById("resultado").innerHTML =
+            "No se encontraron números";
+          return;
+        }
+
+        let notas = [];
+
+        for (let i = 0; i < coincidencias.length; i++) {
+          let num = coincidencias[i];
+
+          // cambiar coma por punto
+          num = num.replace(",", ".");
+
+          let valor = Number(num);
+
+          if (isNaN(valor)) {
+            continue;
+          }
+
+          // filtrar rango
+          if (valor < 0 || valor > 10) {
+            continue;
+          }
+
+          // redondear a 1 decimal
+          valor = Math.round(valor * 10) / 10;
+
+          notas.push(valor);
+        }
+
+        if (notas.length === 0) {
+          document.getElementById("resultado").innerHTML =
+            "No hay notas válidas";
+          return;
+        }
+
+        // ordenar
+        notas.sort(function (a, b) {
+          return a - b;
+        });
+
+        let n = notas.length;
+
+        // media
+        let suma = 0;
+
+        for (let i = 0; i < n; i++) {
+          suma += notas[i];
+        }
+
+        let media = suma / n;
+
+        // mediana
+        let mediana = 0;
+
+        if (n % 2 == 1) {
+          mediana = notas[Math.floor(n / 2)];
+        } else {
+          mediana = (notas[n / 2 - 1] + notas[n / 2]) / 2;
+        }
+
+        // moda
+        let moda = notas[0];
+        let maxRep = 1;
+        let rep = 1;
+
+        for (let i = 1; i < n; i++) {
+          if (notas[i] == notas[i - 1]) {
+            rep++;
+          } else {
+            rep = 1;
+          }
+
+          if (rep > maxRep) {
+            maxRep = rep;
+            moda = notas[i];
+          }
+        }
+
+        // desviación típica
+        let varianza = 0;
+
+        for (let i = 0; i < n; i++) {
+          varianza += Math.pow(notas[i] - media, 2);
+        }
+
+        varianza = varianza / n;
+
+        let desviacion = Math.sqrt(varianza);
+
+        // percentiles
+        function percentil(p) {
+          let pos = (p / 100) * (n - 1);
+
+          let i = Math.floor(pos);
+          let j = Math.ceil(pos);
+
+          if (i == j) {
+            return notas[i];
+          }
+
+          return notas[i] + (notas[j] - notas[i]) * (pos - i);
+        }
+
+        let p25 = percentil(25);
+        let p50 = percentil(50);
+        let p75 = percentil(75);
+
+        // distribución por tramos
+        let t1 = 0,
+          t2 = 0,
+          t3 = 0,
+          t4 = 0,
+          t5 = 0;
+
+        for (let i = 0; i < n; i++) {
+          let v = notas[i];
+
+          if (v < 2) t1++;
+          else if (v < 5) t2++;
+          else if (v < 7) t3++;
+          else if (v < 9) t4++;
+          else t5++;
+        }
+
+        // salida
+        let html = "";
+
+        html += "<h3>Notas limpias</h3>";
+        html += notas.join(", ");
+
+        html += "<h3>Medidas estadísticas</h3>";
+
+        html += "<table>";
+        html += "<tr><th>Medida</th><th>Valor</th></tr>";
+
+        html += "<tr><td>Media</td><td>" + media.toFixed(2) + "</td></tr>";
+        html += "<tr><td>Mediana</td><td>" + mediana.toFixed(2) + "</td></tr>";
+        html += "<tr><td>Moda</td><td>" + moda + "</td></tr>";
+        html +=
+          "<tr><td>Desviación típica</td><td>" +
+          desviacion.toFixed(2) +
+          "</td></tr>";
+        html += "<tr><td>P25</td><td>" + p25.toFixed(2) + "</td></tr>";
+        html += "<tr><td>P50</td><td>" + p50.toFixed(2) + "</td></tr>";
+        html += "<tr><td>P75</td><td>" + p75.toFixed(2) + "</td></tr>";
+
+        html += "</table>";
+
+        html += "<h3>Distribución de notas</h3>";
+
+        html += "0-2 : " + t1 + "<br>";
+        html += "2-5 : " + t2 + "<br>";
+        html += "5-7 : " + t3 + "<br>";
+        html += "7-9 : " + t4 + "<br>";
+        html += "9-10 : " + t5 + "<br>";
+
+        document.getElementById("resultado").innerHTML = html;
+      }
+    </script>
+  </body>
+</html>
