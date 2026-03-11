@@ -43,8 +43,7 @@
       var normalizado = texto.toLowerCase();
 
       // 2. Eliminar tildes
-      normalizado = normalizado
-        .normalize("NFD")
+      normalizado = normalizado.normalize("NFD");
 
       // 3. Eliminar signos de puntuación
       normalizado = normalizado.replace(/[.,;:¿?¡!()"]/g, "");
@@ -146,6 +145,42 @@
 
       // mostrar texto normalizado
       document.getElementById("texto").innerText = normalizado;
+
+      /*Explicación en pseudocódigo:
+  INICIO
+
+leer texto
+
+convertir a minúsculas
+eliminar tildes
+eliminar signos de puntuación
+reducir espacios múltiples
+
+caracteresCon = longitud del texto
+caracteresSin = longitud sin espacios
+
+separar texto en palabras
+
+numPalabras = número de palabras
+
+buscar palabra más larga recorriendo lista
+
+contar vocales en el texto
+
+crear objeto contador de palabras
+
+PARA cada palabra
+    incrementar contador
+FIN PARA
+
+ordenar palabras por frecuencia
+
+mostrar las 5 más repetidas
+
+mostrar resultados
+
+FIN
+*/
     </script>
   </body>
 </html>

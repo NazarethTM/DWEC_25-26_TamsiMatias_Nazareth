@@ -9,99 +9,172 @@
     <h2>Evaluador de contraseña</h2>
 
     <script>
-      // Pedimos la contraseña al usuario
-      var passwd = prompt("Introduce una contraseña para evaluarla");
+            // Pedimos la contraseña al usuario
+            var passwd = prompt("Introduce una contraseña para evaluarla");
 
-      // Puntuación inicial
-      var puntos = 0;
+            // Puntuación inicial
+            var puntos = 0;
 
-      // Aquí guardaremos recomendaciones
-      var recomendaciones = "";
+            // Aquí guardaremos recomendaciones
+            var recomendaciones = "";
 
-      // A) LONGITUD
+            // A) LONGITUD
 
-      if (passwd.length >= 8) {
-        puntos += 20;
-      } else {
-        recomendaciones += "- Usa al menos 8 caracteres\n";
-      }
+            if (passwd.length >= 8) {
+              puntos += 20;
+            } else {
+              recomendaciones += "- Usa al menos 8 caracteres\n";
+            }
 
-      if (passwd.length >= 12) {
-        puntos += 10;
-      }
+            if (passwd.length >= 12) {
+              puntos += 10;
+            }
 
-      // B) CONTENIDO
-      // Aqui ponggo las puntuaciones de cada tipo de caracter y las recomendaciones en caso de que estas no se cumplan.
+            // B) CONTENIDO
+            // Aqui ponggo las puntuaciones de cada tipo de caracter y las recomendaciones en caso de que estas no se cumplan.
 
-      if (/[A-Z]/.test(passwd)) {
-        puntos += 15;
-      } else {
-        recomendaciones += "- Añade alguna letra mayúscula\n";
-      }
+            if (/[A-Z]/.test(passwd)) {
+              puntos += 15;
+            } else {
+              recomendaciones += "- Añade alguna letra mayúscula\n";
+            }
 
-      if (/[a-z]/.test(passwd)) {
-        puntos += 15;
-      } else {
-        recomendaciones += "- Añade alguna letra minúscula\n";
-      }
+            if (/[a-z]/.test(passwd)) {
+              puntos += 15;
+            } else {
+              recomendaciones += "- Añade alguna letra minúscula\n";
+            }
 
-      if (/[0-9]/.test(passwd)) {
-        puntos += 15;
-      } else {
-        recomendaciones += "- Añade algún número\n";
-      }
+            if (/[0-9]/.test(passwd)) {
+              puntos += 15;
+            } else {
+              recomendaciones += "- Añade algún número\n";
+            }
 
-      if (/[^A-Za-z0-9]/.test(passwd)) {
-        puntos += 15;
-      } else {
-        recomendaciones += "- Añade algún caracter especial (!, @, #, etc.)\n";
-      }
+            if (/[^A-Za-z0-9]/.test(passwd)) {
+              puntos += 15;
+            } else {
+              recomendaciones += "- Añade algún caracter especial (!, @, #, etc.)\n";
+            }
 
-      // C) PENALIZACIONES
-      if (/(.)\1\1\1/.test(passwd)) {
-        puntos -= 15;
-        recomendaciones +=
-          "- Evita repetir el mismo carácter muchas veces seguidas\n";
-      }
+            // C) PENALIZACIONES
+            if (/(.)\1\1\1/.test(passwd)) {
+              puntos -= 15;
+              recomendaciones +=
+                "- Evita repetir el mismo carácter muchas veces seguidas\n";
+            }
 
-      // Secuencia sencilla tipo 1234 o abcd
-      if (passwd.includes("1234") || passwd.includes("abcd")) {
-        puntos -= 15;
-        recomendaciones += "- Evita secuencias fáciles como 1234 o abcd\n";
-      }
+            // Secuencia sencilla tipo 1234 o abcd
+            if (passwd.includes("1234") || passwd.includes("abcd")) {
+              puntos -= 15;
+              recomendaciones += "- Evita secuencias fáciles como 1234 o abcd\n";
+            }
 
-      // D) AJUSTE FINAL
+            // D) AJUSTE FINAL
 
-      if (puntos < 0) {
-        puntos = 0;
-      }
+            if (puntos < 0) {
+              puntos = 0;
+            }
 
-      if (puntos > 100) {
-        puntos = 100;
-      }
+            if (puntos > 100) {
+              puntos = 100;
+            }
 
-      // NIVEL DE SEGURIDAD
+            // NIVEL DE SEGURIDAD
 
-      var nivel;
+            var nivel;
 
-      if (puntos <= 44) {
-        nivel = "Débil";
-      } else if (puntos <= 69) {
-        nivel = "Media";
-      } else {
-        nivel = "Fuerte";
-      }
+            if (puntos <= 44) {
+              nivel = "Débil";
+            } else if (puntos <= 69) {
+              nivel = "Media";
+            } else {
+              nivel = "Fuerte";
+            }
 
-      // RESULTADO
+            // RESULTADO
 
-      alert(
-        "Puntuación de contraseña introducida: " +
-          puntos +
-          "\nNivel de seguridad: " +
-          nivel +
-          "\n\nRecomendaciones/Carencias:\n" +
-          recomendaciones,
-      );
+            alert(
+              "Puntuación de contraseña introducida: " +
+                puntos +
+                "\nNivel de seguridad: " +
+                nivel +
+                "\n\nRecomendaciones/Carencias:\n" +
+                recomendaciones,
+            );
+
+        /*Explicación en pseudo código:
+
+        INICIO
+
+      leer contraseña
+
+      puntos = 0
+
+      SI longitud >= 8
+          puntos +20
+      SINO
+          añadir recomendación
+      FIN SI
+
+      SI longitud >= 12
+          puntos +10
+      FIN SI
+
+      SI tiene mayúscula
+          puntos +15
+      SINO
+          recomendación
+      FIN SI
+
+      SI tiene minúscula
+          puntos +15
+      SINO
+          recomendación
+      FIN SI
+
+      SI tiene número
+          puntos +15
+      SINO
+          recomendación
+      FIN SI
+
+      SI tiene símbolo
+          puntos +15
+      SINO
+          recomendación
+      FIN SI
+
+      SI tiene 4 caracteres iguales seguidos
+          puntos -15
+      FIN SI
+
+      SI tiene secuencia como 1234 o abcd
+          puntos -15
+      FIN SI
+
+      SI puntos < 0
+          puntos = 0
+      FIN SI
+
+      SI puntos > 100
+          puntos = 100
+      FIN SI
+
+      SI puntos <= 44
+          nivel = "Débil"
+      SINO SI puntos <= 69
+          nivel = "Media"
+      SINO
+          nivel = "Fuerte"
+      FIN SI
+
+      mostrar puntos
+      mostrar nivel
+      mostrar recomendaciones
+
+      FIN
+      */
     </script>
   </body>
 </html>

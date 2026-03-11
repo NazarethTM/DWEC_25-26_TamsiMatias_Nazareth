@@ -107,6 +107,45 @@
 
       // Mostramos el calendario en la página
       document.getElementById("calendario").innerHTML = html;
+
+      /* Explicación en pseudo código:
+
+    INICIO
+
+leer mes
+leer año
+
+mesJS = mes - 1
+
+primerDia = fecha(año, mesJS, 1)
+
+dow = díaSemana(primerDia)
+
+convertir domingo=0 a lunes=0
+
+ultimoDia = fecha(año, mesJS + 1, 0)
+
+crear tabla calendario
+
+añadir encabezado Lun Mar Mie Jue Vie Sab Dom
+
+añadir celdas vacías antes del primer día
+
+PARA dia desde 1 hasta ultimoDia
+
+    SI es el día actual
+        resaltar celda
+    FIN SI
+
+    añadir dia a la tabla
+
+FIN PARA
+
+añadir celdas vacías al final si faltan
+
+mostrar tabla
+
+FIN */
     </script>
   </body>
 </html>

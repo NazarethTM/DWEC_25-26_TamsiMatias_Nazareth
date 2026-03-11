@@ -100,6 +100,52 @@
 
       // Mensaje al salir
       alert("Gracias por usar el cajero");
+
+      /*Explicación pseudocódigo:
+      INICIO
+
+saldo = 1000
+historial = lista vacía
+
+REPETIR
+
+mostrar menú
+leer opción
+
+SEGÚN opción
+
+1 INGRESAR
+    leer cantidad
+    SI cantidad válida
+        saldo = saldo + cantidad
+        guardar operación en historial
+    FIN SI
+
+2 RETIRAR
+    leer cantidad
+    SI cantidad válida Y saldo suficiente
+        saldo = saldo - cantidad
+        guardar operación en historial
+    FIN SI
+
+3 VER SALDO
+    mostrar saldo
+
+4 VER HISTORIAL
+    mostrar últimas operaciones
+
+FIN SEGÚN
+
+SI historial tiene más de 5 operaciones
+    eliminar la más antigua
+FIN SI
+
+HASTA que opción = 0
+
+mostrar mensaje de salida
+
+FIN
+      */
     </script>
   </body>
 </html>

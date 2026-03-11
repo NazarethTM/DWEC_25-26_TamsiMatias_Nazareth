@@ -9,63 +9,103 @@
     <h2>Validador de DNI / NIE</h2>
 
     <script>
-      // Tabla de letras que se usa para calcular la letra del DNI
-      var tabla = "TRWAGMYFPDXBNJZSQVHLCKE";
+            // Tabla de letras que se usa para calcular la letra del DNI
+            var tabla = "TRWAGMYFPDXBNJZSQVHLCKE";
 
-      // Pedimos al usuario que introduzca un DNI o NIE
-      var entrada = prompt("Introduce un DNI o NIE");
+            // Pedimos al usuario que introduzca un DNI o NIE
+            var entrada = prompt("Introduce un DNI o NIE");
 
-      // Normalizamos el texto:
-      // quitamos espacios al principio y final y pasamos a mayúsculas
-      entrada = entrada.trim().toUpperCase();
+            // Normalizamos el texto:
+            // quitamos espacios al principio y final y pasamos a mayúsculas
+            entrada = entrada.trim().toUpperCase();
 
-      // Guardamos la letra final que ha introducido el usuario
-      var letraIntroducida = entrada.charAt(entrada.length - 1);
+            // Guardamos la letra final que ha introducido el usuario
+            var letraIntroducida = entrada.charAt(entrada.length - 1);
 
-      var numero; // aquí guardaremos el número que se usará para el cálculo
+            var numero; // aquí guardaremos el número que se usará para el cálculo
 
-      // COMPROBAMOS SI ES NIE
-      // Si empieza por X, Y o Z es un NIE
-      if (
-        entrada.charAt(0) === "X" ||
-        entrada.charAt(0) === "Y" ||
-        entrada.charAt(0) === "Z"
-      ) {
-        var primera = entrada.charAt(0);
+            // COMPROBAMOS SI ES NIE
+            // Si empieza por X, Y o Z es un NIE
+            if (
+              entrada.charAt(0) === "X" ||
+              entrada.charAt(0) === "Y" ||
+              entrada.charAt(0) === "Z"
+            ) {
+              var primera = entrada.charAt(0);
 
-        // Sustituimos la letra inicial por su número
-        if (primera === "X") {
-          primera = "0";
-        } else if (primera === "Y") {
-          primera = "1";
-        } else if (primera === "Z") {
-          primera = "2";
-        }
+              // Sustituimos la letra inicial por su número
+              if (primera === "X") {
+                primera = "0";
+              } else if (primera === "Y") {
+                primera = "1";
+              } else if (primera === "Z") {
+                primera = "2";
+              }
 
-        // Creamos el número para calcular la letra
-        numero = primera + entrada.substring(1, 8);
-      } else {
-        // Si no empieza por X,Y,Z lo tratamos como DNI
-        numero = entrada.substring(0, 8);
-      }
+              // Creamos el número para calcular la letra
+              numero = primera + entrada.substring(1, 8);
+            } else {
+              // Si no empieza por X,Y,Z lo tratamos como DNI
+              numero = entrada.substring(0, 8);
+            }
 
-      // Convertimos el número a entero
-      numero = parseInt(numero);
+            // Convertimos el número a entero
+            numero = parseInt(numero);
 
-      // Calculamos el resto al dividir entre 23
-      var resto = numero % 23;
+            // Calculamos el resto al dividir entre 23
+            var resto = numero % 23;
 
-      // Buscamos la letra correcta en la tabla
-      var letraCorrecta = tabla.charAt(resto);
+            // Buscamos la letra correcta en la tabla
+            var letraCorrecta = tabla.charAt(resto);
 
-      // Comparamos la letra introducida con la calculada
-      if (letraIntroducida === letraCorrecta) {
-        alert("El DNI/NIE es válido");
-      } else {
-        alert(
-          "El DNI/NIE es inválido. La letra correcta sería: " + letraCorrecta,
-        );
-      }
+            // Comparamos la letra introducida con la calculada
+            if (letraIntroducida === letraCorrecta) {
+              alert("El DNI/NIE es válido");
+            } else {
+              alert(
+                "El DNI/NIE es inválido. La letra correcta sería: " + letraCorrecta,
+              );
+            }
+
+      /*Explicación en pseudo código:
+
+      INICIO
+
+      leer texto (dni o nie)
+
+      quitar espacios
+      convertir a mayúsculas
+
+      letraIntroducida = último carácter
+
+      SI empieza por X, Y o Z ENTONCES
+          sustituir:
+              X → 0
+              Y → 1
+              Z → 2
+
+          numero = primera cifra + siguientes 7 dígitos
+      SINO
+          numero = primeros 8 dígitos
+      FIN SI
+
+      convertir numero a entero
+
+      resto = numero MOD 23
+
+      tabla = "TRWAGMYFPDXBNJZSQVHLCKE"
+
+      letraCorrecta = tabla[resto]
+
+      SI letraIntroducida = letraCorrecta ENTONCES
+          mostrar "Documento válido"
+      SINO
+          mostrar "Documento inválido"
+          mostrar letraCorrecta
+      FIN SI
+
+      FIN
+      */
     </script>
   </body>
 </html>
