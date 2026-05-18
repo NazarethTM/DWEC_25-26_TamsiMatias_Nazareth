@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Monitor</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Monitor de información</h1>
+
+    <div id="contenido"></div>
+
+    <script>
+      const contenido = document.getElementById("contenido");
+
+      // Función para mostrar datos
+      function mostrarDatos() {
+        let datos = localStorage.getItem("diagnostico");
+
+        if (datos) {
+          contenido.innerHTML = datos;
+        } else {
+          contenido.innerHTML = "No hay información almacenada";
+        }
+      }
+
+      // Mostrar al cargar
+      mostrarDatos();
+
+      // Detectar cambios en localStorage
+      window.addEventListener("storage", () => {
+        mostrarDatos();
+      });
+    </script>
+  </body>
+</html>

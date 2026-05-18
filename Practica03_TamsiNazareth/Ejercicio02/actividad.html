@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Actividad</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Registro de actividad</h1>
+
+    <div id="registro"></div>
+
+    <script>
+      const registroDiv = document.getElementById("registro");
+
+      function mostrarRegistro() {
+        let registro = JSON.parse(localStorage.getItem("registro")) || [];
+
+        registroDiv.innerHTML = "";
+
+        registro.forEach((accion) => {
+          registroDiv.innerHTML += `<p>${accion}</p>`;
+        });
+      }
+
+      // Mostrar al cargar
+      mostrarRegistro();
+
+      // Actualización automática
+      window.addEventListener("storage", () => {
+        mostrarRegistro();
+      });
+    </script>
+  </body>
+</html>

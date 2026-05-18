@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Panel Principal</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Panel principal</h1>
+
+    <button id="abrirMonitor">Abrir monitor</button>
+
+    <button id="tamVentana">Enviar tamaño ventana</button>
+
+    <button id="urlActual">Enviar URL actual</button>
+
+    <button id="historial">Enviar historial</button>
+
+    <button id="infoNavegador">Enviar navegador</button>
+
+    <button id="infoPantalla">Enviar pantalla</button>
+
+    <button id="limpiar">Limpiar información</button>
+
+    <script>
+      // Abrir ventana monitor
+      document.getElementById("abrirMonitor").addEventListener("click", () => {
+        window.open("monitor.html", "_blank", "width=500,height=500");
+      });
+
+      // Tamaño ventana
+      document.getElementById("tamVentana").addEventListener("click", () => {
+        let datos = `
+        Anchura: ${window.innerWidth}px <br>
+        Altura: ${window.innerHeight}px
+    `;
+
+        localStorage.setItem("diagnostico", datos);
+      });
+
+      // URL actual
+      document.getElementById("urlActual").addEventListener("click", () => {
+        let datos = `
+        URL actual: ${location.href}
+    `;
+
+        localStorage.setItem("diagnostico", datos);
+      });
+
+      // Historial
+      document.getElementById("historial").addEventListener("click", () => {
+        let datos = `
+        Entradas en historial: ${history.length}
+    `;
+
+        localStorage.setItem("diagnostico", datos);
+      });
+
+      // Navegador
+      document.getElementById("infoNavegador").addEventListener("click", () => {
+        let datos = `
+        Navegador: ${navigator.userAgent}
+    `;
+
+        localStorage.setItem("diagnostico", datos);
+      });
+
+      // Pantalla
+      document.getElementById("infoPantalla").addEventListener("click", () => {
+        let datos = `
+        Resolución: ${screen.width} x ${screen.height}
+    `;
+
+        localStorage.setItem("diagnostico", datos);
+      });
+
+      // Limpiar
+      document.getElementById("limpiar").addEventListener("click", () => {
+        localStorage.removeItem("diagnostico");
+      });
+    </script>
+  </body>
+</html>

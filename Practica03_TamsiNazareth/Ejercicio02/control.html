@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Control</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Control de actividad</h1>
+
+    <button id="abrir">Abrir actividad</button>
+
+    <button id="guardarURL">Guardar URL</button>
+
+    <button id="guardarHistorial">Guardar historial</button>
+
+    <button id="guardarNavegador">Guardar navegador</button>
+
+    <button id="guardarPantalla">Guardar pantalla</button>
+
+    <button id="redirigir">Redirigir</button>
+
+    <button id="volver">Volver atrás</button>
+
+    <button id="recargar">Recargar</button>
+
+    <button id="borrar">Borrar registro</button>
+
+    <script>
+      function guardarAccion(texto) {
+        let registro = JSON.parse(localStorage.getItem("registro")) || [];
+
+        registro.push(texto);
+
+        localStorage.setItem("registro", JSON.stringify(registro));
+      }
+
+      // Abrir ventana
+      document.getElementById("abrir").addEventListener("click", () => {
+        window.open("actividad.html", "_blank", "width=500,height=500");
+      });
+
+      // URL
+      document.getElementById("guardarURL").addEventListener("click", () => {
+        guardarAccion("URL actual: " + location.href);
+      });
+
+      // Historial
+      document
+        .getElementById("guardarHistorial")
+        .addEventListener("click", () => {
+          guardarAccion("Historial: " + history.length);
+        });
+
+      // Navegador
+      document
+        .getElementById("guardarNavegador")
+        .addEventListener("click", () => {
+          guardarAccion("Navegador: " + navigator.userAgent);
+        });
+
+      // Pantalla
+      document
+        .getElementById("guardarPantalla")
+        .addEventListener("click", () => {
+          guardarAccion("Pantalla: " + screen.width + "x" + screen.height);
+        });
+
+      // Redirigir
+      document.getElementById("redirigir").addEventListener("click", () => {
+        guardarAccion("Redirección a Google");
+
+        location.href = "https://www.google.com";
+      });
+
+      // Volver atrás
+      document.getElementById("volver").addEventListener("click", () => {
+        guardarAccion("Volver atrás");
+
+        history.back();
+      });
+
+      // Recargar
+      document.getElementById("recargar").addEventListener("click", () => {
+        guardarAccion("Página recargada");
+
+        location.reload();
+      });
+
+      // Borrar
+      document.getElementById("borrar").addEventListener("click", () => {
+        localStorage.removeItem("registro");
+      });
+    </script>
+  </body>
+</html>
