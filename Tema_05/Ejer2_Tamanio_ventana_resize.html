@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tamaño de la ventana</title>
+  </head>
+
+  <body>
+    <h1>Actualizar tamaño al redimensionar</h1>
+    <p id="out"></p>
+
+    <script>
+      // Buscamos el botón por su id y le añadimos un "escuchador" de eventos
+      // En este caso, cuando el usuario redimensiona la ventana, se ejecuta la función mostrarTamano
+      document
+        .getElementById("out")
+        .addEventListener("resize", actualizarTamano);
+
+      // Definimos la función que se ejecutará al hacer click
+      function actualizarTamano() {
+        document.getElementById("out").textContent =
+          "Ancho: " + window.innerWidth + " px  |  Alto: " + window.innerHeight + " px";
+      }
+      actualizarTamano(); // Llamamos a la función para mostrar el tamaño inicial al cargar la página
+    </script>
+  </body>
+</html>

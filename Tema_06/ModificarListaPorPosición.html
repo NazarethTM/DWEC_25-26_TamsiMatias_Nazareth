@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modificar Lista por Posición</title>
+  </head>
+  <body>
+    <h1>Modificar Lista por Posición</h1>
+
+    <div class="controles">
+      <input type="text" id="inputElemento" placeholder="Elemento" />
+      <input
+        type="number"
+        id="inputPosicion"
+        placeholder="Posición"
+        min="0"
+        style="width: 90px"
+      />
+      <button id="btnInsertar">Insertar</button>
+      <button id="btnEliminar">Eliminar</button>
+    </div>
+
+    <p id="mensaje">La lista está vacía.</p>
+    <ul id="listaVisual"></ul>
+
+    <script>
+      const inputElemento = document.getElementById("inputElemento");
+      const inputPosicion = document.getElementById("inputPosicion");
+      const btnInsertar = document.getElementById("btnInsertar");
+      const btnEliminar = document.getElementById("btnEliminar");
+      const mensaje = document.getElementById("mensaje");
+      const listaVisual = document.getElementById("listaVisual");
+
+      const lista = [];
+
+      function renderLista() {
+        listaVisual.innerHTML = lista
+          .map((el, i) => `<li><span>[${i}]</span>${el}</li>`)
+          .join("");
+      }
+
+      function mostrarMensaje(texto) {
+        mensaje.textContent = texto;
+      }
+
+      btnInsertar.addEventListener("click", () => {
+        const elemento = inputElemento.value.trim();
+        const posicion = parseInt(inputPosicion.value);
+
+        if (!elemento) {
+          mostrarMensaje("Escribe un elemento antes de insertar.");
+          return;
+        }
+        if (isNaN(posicion) || posicion < 0 || posicion > lista.length) {
+          mostrarMensaje(
+            `Posición inválida. Debe estar entre 0 y ${lista.length}.`,
+          );
+          return;
+        }
+
+        lista.splice(posicion, 0, elemento);
+        mostrarMensaje(`"${elemento}" insertado en la posición ${posicion}.`);
+        renderLista();
+        inputElemento.value = "";
+        inputPosicion.value = "";
+      });
+
+      btnEliminar.addEventListener("click", () => {
+        const posicion = parseInt(inputPosicion.value);
+
+        if (lista.length === 0) {
+          mostrarMensaje("La lista está vacía, no hay nada que eliminar.");
+          return;
+        }
+        if (isNaN(posicion) || posicion < 0 || posicion >= lista.length) {
+          mostrarMensaje(
+            `Posición inválida. Debe estar entre 0 y ${lista.length - 1}.`,
+          );
+          return;
+        }
+
+        const eliminado = lista.splice(posicion, 1)[0];
+        mostrarMensaje(`"${eliminado}" eliminado de la posición ${posicion}.`);
+        renderLista();
+        inputPosicion.value = "";
+      });
+    </script>
+  </body>
+</html>

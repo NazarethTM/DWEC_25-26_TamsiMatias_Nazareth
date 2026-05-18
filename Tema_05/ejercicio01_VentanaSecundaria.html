@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ventana Secundaria</title>
+  </head>
+  <body>
+    <h1>Ventana Secundaria</h1>
+
+    <input id="mensaje" placeholder="Mensaje para principal" />
+    <button onclick="enviar()">Enviar mensaje</button>
+
+    <p>Mensaje recibido:</p>
+    <div id="salida"></div>
+
+    <script>
+      function enviar() {
+        let texto = document.getElementById("mensaje").value;
+
+        localStorage.setItem("mensajeSecundaria", texto);
+      }
+
+      window.addEventListener("storage", function (e) {
+        if (e.key === "mensajePrincipal") {
+          document.getElementById("salida").textContent = e.newValue;
+        }
+      });
+    </script>
+  </body>
+</html>

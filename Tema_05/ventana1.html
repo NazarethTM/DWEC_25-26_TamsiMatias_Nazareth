@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Ventana 1</title>
+</head>
+
+<body>
+
+  <h1>Ventana 1 (Emisor)</h1>
+
+  <input id="texto" placeholder="Escribe algo">
+  <button onclick="enviar()">Enviar a localStorage</button> //Guarda el dato en el localStorage
+
+  <script>
+    function enviar() {
+      let valor = document.getElementById("texto").value;
+
+      localStorage.setItem("mensaje", valor);
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>03 Alert Confirm Prompt</title>
+</head>
+
+<body>
+
+  <h1>Alert, Confirm y Prompt</h1>
+
+  <button id="btnAlert">Alert</button>
+  <button id="btnConfirm">Confirm</button>
+  <button id="btnPrompt">Prompt</button>
+
+  <pre id="out"></pre>
+
+  <script>
+    document.getElementById("btnAlert").addEventListener("click", mostrarAlert);
+    document.getElementById("btnConfirm").addEventListener("click", mostrarConfirm);
+    document.getElementById("btnPrompt").addEventListener("click", mostrarPrompt);
+
+    function mostrarAlert() {
+      window.alert("Este es un mensaje de alert.");
+    }
+
+    function mostrarConfirm() {
+      let respuesta = window.confirm("¿Desea continuar?");
+
+      if (respuesta) {
+        document.getElementById("out").textContent = "El usuario pulsó Aceptar.";
+      } else {
+        document.getElementById("out").textContent = "El usuario pulsó Cancelar.";
+      }
+    }
+
+    function mostrarPrompt() {
+      let nombre = window.prompt("Introduce tu nombre:");
+
+      if (nombre === null) {
+        document.getElementById("out").textContent = "El usuario canceló la entrada.";
+      } else {
+        document.getElementById("out").textContent = "Nombre introducido: " + nombre;
+      }
+    }
+  </script>
+
+</body>
+
+</html>

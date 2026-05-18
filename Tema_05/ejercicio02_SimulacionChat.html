@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ventana Principal</title>
+  </head>
+  <body>
+    <h1>Ventana Principal</h1>
+
+    <input id="mensaje" placeholder="Mensaje para secundaria" />
+    <button onclick="abrirVentana()">Abrir ventana</button>
+    <button onclick="enviar()">Enviar</button>
+    <button onclick="limpiar()">Limpiar chat</button>
+
+    <h3>Chat:</h3>
+    <div id="chat"></div>
+
+    <script>
+      let ventanaSecundaria = null;
+
+      // Abrir popup
+      function abrirVentana() {
+        ventanaSecundaria = window.open("ejercicio02_SimulacionChatSecundaria.html", "");
+      }
+
+      // Enviar mensaje
+      function enviar() {
+        let texto = document.getElementById("mensaje").value;
+
+        if (!ventanaSecundaria || ventanaSecundaria.closed) {
+          alert("La ventana secundaria no está abierta");
+          return;
+        }
+
+        let chat = JSON.parse(localStorage.getItem("chat")) || [];
+
+        chat.push("Principal: " + texto);
+
+        localStorage.setItem("chat", JSON.stringify(chat));
+        localStorage.setItem("nuevoMensaje", Date.now()); // dispara evento
+      }
+
+      // Recibir cambios
+      window.addEventListener("storage", function (e) {
+        if (e.key === "chat" || e.key === "nuevoMensaje") {
+          mostrarChat();
+        }
+      });
+
+      // Mostrar chat
+      function mostrarChat() {
+        let chat = JSON.parse(localStorage.getItem("chat")) || [];
+        document.getElementById("chat").innerHTML = chat.join("<br>");
+      }
+
+      // Limpiar chat
+      function limpiar() {
+        if (confirm("¿Seguro que quieres borrar el chat?")) {
+          localStorage.removeItem("chat");
+          mostrarChat();
+        }
+      }
+    </script>
+  </body>
+</html>

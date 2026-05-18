@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Evento personalizado</title>
+</head>
+
+<body>
+
+  <h1>Evento personalizado</h1>
+
+  <button id="btnEnviar">Enviar datos</button>
+
+  <h2>Resultado</h2>
+  <div id="resultado"></div>
+
+  <script>
+    const btnEnviar = document.getElementById("btnEnviar");
+    const resultado = document.getElementById("resultado");
+
+    // Escuchar evento personalizado
+    document.addEventListener("datosUsuario", function (e) {
+      resultado.textContent =
+        "Nombre: " + e.detail.nombre +
+        " | Edad: " + e.detail.edad;
+    });
+
+    // Lanzar evento personalizado
+    btnEnviar.addEventListener("click", function () {
+
+      const evento = new CustomEvent("datosUsuario", {
+        detail: {
+          nombre: "Juan",
+          edad: 25
+        }
+      });
+
+      document.dispatchEvent(evento);
+    });
+  </script>
+
+</body>
+
+</html>

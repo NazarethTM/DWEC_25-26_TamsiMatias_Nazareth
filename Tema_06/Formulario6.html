@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Pedido avanzado</title>
+</head>
+
+<body>
+
+  <h1>Pedido avanzado</h1>
+
+  <form id="formulario">
+    <p>
+      Producto:
+      <select id="producto">
+        <option value="">Selecciona</option>
+        <option value="portatil">Portátil - 800 €</option>
+        <option value="tablet">Tablet - 300 €</option>
+        <option value="monitor">Monitor - 200 €</option>
+      </select>
+    </p>
+
+    <p>
+      Cantidad:
+      <input type="number" id="cantidad" min="1" value="1">
+    </p>
+
+    <p>Garantía:</p>
+    <label>
+      <input type="radio" name="garantia" value="0" checked>
+      Sin garantía extra
+    </label>
+    <br>
+    <label>
+      <input type="radio" name="garantia" value="50">
+      Garantía 2 años (+50 €)
+    </label>
+    <br>
+    <label>
+      <input type="radio" name="garantia" value="90">
+      Garantía 3 años (+90 €)
+    </label>
+
+    <p>Extras:</p>
+    <label>
+      <input type="checkbox" class="extra" value="25">
+      Instalación (+25 €)
+    </label>
+    <br>
+    <label>
+      <input type="checkbox" class="extra" value="15">
+      Embalaje regalo (+15 €)
+    </label>
+    <br>
+    <label>
+      <input type="checkbox" class="extra" value="10">
+      Envío urgente (+10 €)
+    </label>
+
+    <p>
+      Código descuento:
+      <input type="text" id="descuento" placeholder="DAW10">
+    </p>
+
+    <button type="submit">Confirmar pedido</button>
+  </form>
+
+  <h2>Resumen en tiempo real</h2>
+  <div id="resumen"></div>
+
+  <h2>Resultado final</h2>
+  <div id="resultado"></div>
+
+  <script>
+    const formulario = document.getElementById("formulario");
+    const producto = document.getElementById("producto");
+    const cantidad = document.getElementById("cantidad");
+    const descuento = document.getElementById("descuento");
+    const resumen = document.getElementById("resumen");
+    const resultado = document.getElementById("resultado");
+
+    function precioProducto() {
+      if (producto.value === "portatil") {
+        return 800;
+      }
+
+      if (producto.value === "tablet") {
+        return 300;
+      }
+
+      if (producto.value === "monitor") {
+        return 200;
+      }
+
+      return 0;
+    }
+
+    function precioGarantia() {
+      const garantia = document.querySelector("input[name='garantia']:checked");
+      return Number(garantia.value);
+    }
+
+    function precioExtras() {
+      const extras = document.querySelectorAll(".extra:checked");
+
+      let totalExtras = 0;
+
+      extras.forEach(function (extra) {
+        totalExtras += Number(extra.value);
+      });
+
+      return totalExtras;
+    }
+
+    function calcularTotal() {
+      const precio = precioProducto();
+      const unidades = Number(cantidad.value);
+      const garantia = precioGarantia();
+      const extras = precioExtras();
+
+      let subtotal = precio * unidades + garantia + extras;
+
+      let descuentoAplicado = 0;
+
+      if (descuento.value === "DAW10") {
+        descuentoAplicado = subtotal * 0.10;
+      }
+
+      const total = subtotal - descuentoAplicado;
+
+      resumen.innerHTML =
+        "Precio producto: " + precio + " €<br>" +
+        "Cantidad: " + unidades + "<br>" +
+        "Garantía: " + garantia + " €<br>" +
+        "Extras: " + extras + " €<br>" +
+        "Descuento: " + descuentoAplicado.toFixed(2) + " €<br>" +
+        "<strong>Total: " + total.toFixed(2) + " €</strong>";
+
+      return total;
+    }
+
+    formulario.addEventListener("input", calcularTotal);
+    formulario.addEventListener("change", calcularTotal);
+
+    formulario.addEventListener("submit", function (evento) {
+      evento.preventDefault();
+
+      if (producto.value === "") {
+        resultado.textContent = "Debes seleccionar un producto.";
+        return;
+      }
+
+      if (cantidad.value === "" || Number(cantidad.value) <= 0) {
+        resultado.textContent = "La cantidad debe ser mayor que 0.";
+        return;
+      }
+
+      const total = calcularTotal();
+
+      resultado.textContent =
+        "Pedido confirmado. Importe final: " + total.toFixed(2) + " €";
+    });
+
+    calcularTotal();
+  </script>
+
+</body>
+
+</html>

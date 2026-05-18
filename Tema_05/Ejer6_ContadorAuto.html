@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Contador automático</h1>
+
+    <p id="contador">0</p>
+
+    <button id="inicio">Iniciar</button>
+    <button id="parar">Parar</button>
+    <button id="reiniciar">Reiniciar</button>
+
+    <script>
+      let contador = 0;
+      let intervalo;
+
+      document.getElementById("inicio").addEventListener("click", function () {
+        intervalo = setInterval(function () {
+          contador++;
+          document.getElementById("contador").textContent = contador;
+        }, 1000);
+      });
+
+      document.getElementById("parar").addEventListener("click", function () {
+        clearInterval(intervalo);
+      });
+
+      document
+        .getElementById("reiniciar")
+        .addEventListener("click", function () {
+          clearInterval(intervalo);
+          contador = 0;
+          document.getElementById("contador").textContent = contador;
+        });
+    </script>
+  </body>
+</html>

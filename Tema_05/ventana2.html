@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Ventana 2</title>
+</head>
+
+<body>
+
+  <h1>Ventana 2 (Receptor)</h1>
+
+  <p>Mensaje recibido:</p>
+  <div id="salida"></div>
+
+  <script>
+
+    // Escuchar cambios en localStorage
+    window.addEventListener("storage", function (e) {
+
+      if (e.key === "mensaje") {
+
+        document.getElementById("salida").textContent =
+          e.newValue;
+
+      }
+
+    });
+
+  </script>
+
+</body>
+
+</html>

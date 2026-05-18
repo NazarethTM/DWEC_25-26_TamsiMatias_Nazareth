@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Propagación de eventos</title>
+</head>
+
+<body>
+
+  <h1>Propagación de eventos</h1>
+
+  <label>
+    <input type="checkbox" id="captura"> Activar fase de CAPTURA
+  </label>
+
+  <br><br>
+
+  <div id="abuelo" style="padding:30px; border:3px solid blue;">
+    ABUELO
+    <div id="padre" style="padding:30px; border:3px solid red;">
+      PADRE
+      <button id="hijo">HIJO</button>
+    </div>
+  </div>
+
+  <h2>Salida</h2>
+  <pre id="salida"></pre>
+
+  <script>
+    const salida = document.getElementById("salida");
+    const checkCaptura = document.getElementById("captura");
+
+    function log(texto) {
+      salida.textContent += texto + "\n";
+    }
+
+    // función que registra eventos
+    function registrarEventos() {
+
+      // limpiamos eventos anteriores clonando nodos
+      const abuelo = document.getElementById("abuelo");
+      const padre = document.getElementById("padre");
+      const hijo = document.getElementById("hijo");
+
+      const nuevoAbuelo = abuelo.cloneNode(true);
+      abuelo.replaceWith(nuevoAbuelo);
+
+      const nuevoPadre = document.getElementById("padre");
+      const nuevoHijo = document.getElementById("hijo");
+
+      salida.textContent = "";
+
+      const usarCaptura = checkCaptura.checked;
+
+      nuevoAbuelo.addEventListener("click", function (e) {
+        log("ABUELO -> " + e.eventPhase);
+      }, usarCaptura);
+
+      nuevoPadre.addEventListener("click", function (e) {
+        log("PADRE -> " + e.eventPhase);
+      }, usarCaptura);
+
+      nuevoHijo.addEventListener("click", function (e) {
+        log("HIJO -> " + e.eventPhase);
+      }, usarCaptura);
+    }
+
+    // registrar al inicio
+    registrarEventos();
+
+    // cambiar modo
+    checkCaptura.addEventListener("change", registrarEventos);
+
+  </script>
+
+</body>
+
+</html>

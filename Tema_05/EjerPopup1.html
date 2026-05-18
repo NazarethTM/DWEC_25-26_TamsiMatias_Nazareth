@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Control de ventana emergente</title>
+</head>
+
+<body>
+
+  <h1>Control de ventana (window)</h1>
+
+  <button onclick="abrirVentana()">Abrir ventana</button>
+  <button onclick="moverVentana()">Mover ventana</button>
+  <button onclick="redimensionarVentana()">Redimensionar ventana</button>
+  <button onclick="cerrarVentana()">Cerrar ventana</button>
+
+  <script>
+    let ventana = null;
+
+    function abrirVentana() {
+
+      // Tamaño proporcional a la pantalla
+      let ancho = screen.width * 0.5;
+      let alto = screen.height * 0.5;
+
+      // Centrar ventana
+      let izquierda = (screen.width - ancho) / 2;
+      let arriba = (screen.height - alto) / 2;
+
+      ventana = window.open(
+        "popup1.html",
+        "miVentana",
+        `width=${ancho},height=${alto},left=${izquierda},top=${arriba},resizable=yes`
+      );
+    }
+
+    function moverVentana() {
+      if (ventana && !ventana.closed) {
+        ventana.moveBy(100, 100);
+      } else {
+        alert("Primero abre la ventana");
+      }
+    }
+
+    function redimensionarVentana() {
+      if (ventana && !ventana.closed) {
+        ventana.resizeBy(100, 100);
+      } else {
+        alert("Primero abre la ventana");
+      }
+    }
+
+    function cerrarVentana() {
+      if (ventana && !ventana.closed) {
+        ventana.close();
+      } else {
+        alert("La ventana ya está cerrada");
+      }
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 6</title>
+</head>
+<body>
+   <h1>Actividad propuesta 6.1</h1>
+
+    <a href="#enlace1" id="enlace1">Enlace 1</a>
+    <a href="#enlace2" id="enlace2">Enlace 2</a>
+
+    <script>
+        setTimeout(function() {
+            document.getElementById("enlace1").remove();
+        }, 5000);
+
+        //Se hace un segundo temporizador al expirarse el primero...
+        setTimeout(function() {
+            document.getElementById("enlace2").remove();
+        }, 10000);
+    </script>
+</body>
+</html>

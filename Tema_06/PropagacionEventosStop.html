@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Propagación de eventos</title>
+</head>
+
+<body>
+
+  <h1>Propagación de eventos</h1>
+
+  <label>
+    <input type="checkbox" id="captura">
+    Activar fase de captura
+  </label>
+
+  <br>
+
+  <label>
+    <input type="checkbox" id="parar">
+    Activar stopPropagation() en el HIJO
+  </label>
+
+  <br><br>
+
+  <button id="limpiar">Limpiar salida</button>
+
+  <br><br>
+
+  <div id="abuelo" style="padding:30px; border:3px solid blue;">
+    ABUELO
+
+    <div id="padre" style="padding:30px; border:3px solid red;">
+      PADRE
+
+      <button id="hijo">HIJO</button>
+    </div>
+  </div>
+
+  <h2>Salida</h2>
+  <pre id="salida"></pre>
+
+  <script>
+    const checkCaptura = document.getElementById("captura");
+    const checkParar = document.getElementById("parar");
+    const limpiar = document.getElementById("limpiar");
+    const salida = document.getElementById("salida");
+
+    function escribir(texto) {
+      salida.textContent += texto + "\n";
+    }
+
+    function nombreFase(numeroFase) {
+      if (numeroFase === 1) {
+        return "CAPTURA";
+      }
+
+      if (numeroFase === 2) {
+        return "TARGET";
+      }
+
+      if (numeroFase === 3) {
+        return "BURBUJA";
+      }
+    }
+
+    function registrarEventos() {
+      const abueloOriginal = document.getElementById("abuelo");
+
+      const nuevoAbuelo = abueloOriginal.cloneNode(true);
+      abueloOriginal.replaceWith(nuevoAbuelo);
+
+      const abuelo = document.getElementById("abuelo");
+      const padre = document.getElementById("padre");
+      const hijo = document.getElementById("hijo");
+
+      const usarCaptura = checkCaptura.checked;
+
+      abuelo.addEventListener("click", function (evento) {
+        escribir(
+          "ABUELO - fase: " +
+          nombreFase(evento.eventPhase) +
+          " - eventPhase: " +
+          evento.eventPhase
+        );
+      }, usarCaptura);
+
+      padre.addEventListener("click", function (evento) {
+        escribir(
+          "PADRE  - fase: " +
+          nombreFase(evento.eventPhase) +
+          " - eventPhase: " +
+          evento.eventPhase
+        );
+      }, usarCaptura);
+
+      hijo.addEventListener("click", function (evento) {
+        escribir(
+          "HIJO   - fase: " +
+          nombreFase(evento.eventPhase) +
+          " - eventPhase: " +
+          evento.eventPhase
+        );
+
+        if (checkParar.checked) {
+          escribir("→ stopPropagation() ejecutado en HIJO");
+          evento.stopPropagation();
+        }
+      }, usarCaptura);
+    }
+
+    checkCaptura.addEventListener("change", function () {
+      salida.textContent = "";
+      registrarEventos();
+    });
+
+    checkParar.addEventListener("change", function () {
+      salida.textContent = "";
+      registrarEventos();
+    });
+
+    limpiar.addEventListener("click", function () {
+      salida.textContent = "";
+    });
+
+    registrarEventos();
+  </script>
+
+</body>
+
+</html>

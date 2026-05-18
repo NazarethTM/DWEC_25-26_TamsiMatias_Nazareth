@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio 1 - Validación básica</title>
+</head>
+
+<body>
+
+  <h1>Ejercicio 1 - Validación básica</h1>
+
+  <form id="formulario">
+    Nombre: <input type="text" id="nombre">
+    <button type="submit">Enviar</button>
+  </form>
+
+  <h2>Resultado</h2>
+  <div id="resultado"></div>
+
+  <script>
+    const form = document.getElementById("formulario");
+    const nombre = document.getElementById("nombre");
+    const resultado = document.getElementById("resultado");
+
+    form.addEventListener("submit", function (evento) {
+
+      evento.preventDefault(); // evita recarga
+
+      if (nombre.value === "") {
+        resultado.textContent = "El nombre es obligatorio.";
+      } else {
+        resultado.textContent = "Formulario enviado correctamente. Hola " + nombre.value;
+      }
+
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario de pedido</title>
+</head>
+
+<body>
+
+  <h1>Formulario de pedido</h1>
+
+  <form id="formulario">
+    <p>
+      Producto:
+      <select id="producto">
+        <option value="">Selecciona un producto</option>
+        <option value="Portátil">Portátil - 800 €</option>
+        <option value="Tablet">Tablet - 300 €</option>
+        <option value="Ratón">Ratón - 20 €</option>
+      </select>
+    </p>
+
+    <p>
+      Cantidad:
+      <input type="number" id="cantidad" min="1">
+    </p>
+
+    <p>
+      Forma de pago:
+      <select id="pago">
+        <option value="">Selecciona una forma de pago</option>
+        <option value="Tarjeta">Tarjeta</option>
+        <option value="Transferencia">Transferencia</option>
+        <option value="PayPal">PayPal</option>
+      </select>
+    </p>
+
+    <p>
+      <label>
+        <input type="checkbox" id="envio">
+        Añadir envío urgente (+10 €)
+      </label>
+    </p>
+
+    <button type="submit">Calcular pedido</button>
+  </form>
+
+  <h2>Resultado</h2>
+  <div id="resultado"></div>
+
+  <script>
+    const formulario = document.getElementById("formulario");
+    const producto = document.getElementById("producto");
+    const cantidad = document.getElementById("cantidad");
+    const pago = document.getElementById("pago");
+    const envio = document.getElementById("envio");
+    const resultado = document.getElementById("resultado");
+
+    formulario.addEventListener("submit", function (evento) {
+      evento.preventDefault();
+
+      let precio = 0;
+
+      if (producto.value === "") {
+        resultado.textContent = "Debes seleccionar un producto.";
+        return;
+      }
+
+      if (cantidad.value === "" || Number(cantidad.value) <= 0) {
+        resultado.textContent = "La cantidad debe ser mayor que 0.";
+        return;
+      }
+
+      if (pago.value === "") {
+        resultado.textContent = "Debes seleccionar una forma de pago.";
+        return;
+      }
+
+      if (producto.value === "Portátil") {
+        precio = 800;
+      } else if (producto.value === "Tablet") {
+        precio = 300;
+      } else if (producto.value === "Ratón") {
+        precio = 20;
+      }
+
+      let total = precio * Number(cantidad.value);
+
+      if (envio.checked) {
+        total = total + 10;
+      }
+
+      resultado.textContent =
+        "Pedido correcto: " +
+        producto.value +
+        " x " + cantidad.value +
+        " | Pago: " + pago.value +
+        " | Total: " + total + " €";
+    });
+  </script>
+
+</body>
+
+</html>

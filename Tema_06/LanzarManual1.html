@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Evento manual fácil</title>
+</head>
+
+<body>
+
+  <h1>Simular un click</h1>
+
+  <button id="btnReal">Botón real</button>
+  <button id="btnSimular">Simular click</button>
+
+  <h2>Resultado</h2>
+  <div id="resultado"></div>
+
+  <script>
+    const btnReal = document.getElementById("btnReal");
+    const btnSimular = document.getElementById("btnSimular");
+    const resultado = document.getElementById("resultado");
+
+    // Evento normal
+    btnReal.addEventListener("click", function () {
+      resultado.textContent = "Se ha ejecutado el evento click";
+    });
+
+    // Lanzar evento manual
+    btnSimular.addEventListener("click", function () {
+      const evento = new Event("click");
+      btnReal.dispatchEvent(evento);
+    });
+  </script>
+
+</body>
+
+</html>

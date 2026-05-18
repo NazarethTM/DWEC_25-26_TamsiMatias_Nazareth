@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario de registro</title>
+</head>
+
+<body>
+
+  <h1>Formulario de registro</h1>
+
+  <form id="formulario">
+    <p>
+      Nombre:
+      <input type="text" id="nombre">
+    </p>
+
+    <p>
+      Email:
+      <input type="email" id="email">
+    </p>
+
+    <p>
+      Edad:
+      <input type="number" id="edad">
+    </p>
+
+    <p>
+      <label>
+        <input type="checkbox" id="condiciones">
+        Acepto las condiciones
+      </label>
+    </p>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  <h2>Resultado</h2>
+  <div id="resultado"></div>
+
+  <script>
+    const formulario = document.getElementById("formulario");
+    const nombre = document.getElementById("nombre");
+    const email = document.getElementById("email");
+    const edad = document.getElementById("edad");
+    const condiciones = document.getElementById("condiciones");
+    const resultado = document.getElementById("resultado");
+
+    formulario.addEventListener("submit", function (evento) {
+      evento.preventDefault();
+
+      if (nombre.value === "") {
+        resultado.textContent = "El nombre es obligatorio.";
+      } else if (email.value === "") {
+        resultado.textContent = "El email es obligatorio.";
+      } else if (edad.value === "") {
+        resultado.textContent = "La edad es obligatoria.";
+      } else if (Number(edad.value) < 18) {
+        resultado.textContent = "Debes ser mayor de edad.";
+      } else if (!condiciones.checked) {
+        resultado.textContent = "Debes aceptar las condiciones.";
+      } else {
+        resultado.textContent =
+          "Registro correcto: " +
+          nombre.value + " - " +
+          email.value + " - " +
+          edad.value + " años";
+      }
+    });
+  </script>
+
+</body>
+
+</html>

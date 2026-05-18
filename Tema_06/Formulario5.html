@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Registro avanzado</title>
+</head>
+
+<body>
+
+  <h1>Registro avanzado</h1>
+
+  <form id="formulario">
+    <p>
+      Usuario:
+      <input type="text" id="usuario">
+      <span id="errorUsuario"></span>
+    </p>
+
+    <p>
+      Email:
+      <input type="email" id="email">
+      <span id="errorEmail"></span>
+    </p>
+
+    <p>
+      Contraseña:
+      <input type="password" id="password">
+      <span id="errorPassword"></span>
+    </p>
+
+    <p>
+      Repetir contraseña:
+      <input type="password" id="password2">
+      <span id="errorPassword2"></span>
+    </p>
+
+    <p>
+      <label>
+        <input type="checkbox" id="condiciones">
+        Acepto las condiciones
+      </label>
+      <span id="errorCondiciones"></span>
+    </p>
+
+    <button type="submit">Registrarse</button>
+  </form>
+
+  <h2>Resultado</h2>
+  <div id="resultado"></div>
+
+  <script>
+    const formulario = document.getElementById("formulario");
+
+    const usuario = document.getElementById("usuario");
+    const email = document.getElementById("email");
+    const password = document.getElementById("password");
+    const password2 = document.getElementById("password2");
+    const condiciones = document.getElementById("condiciones");
+
+    const errorUsuario = document.getElementById("errorUsuario");
+    const errorEmail = document.getElementById("errorEmail");
+    const errorPassword = document.getElementById("errorPassword");
+    const errorPassword2 = document.getElementById("errorPassword2");
+    const errorCondiciones = document.getElementById("errorCondiciones");
+    const resultado = document.getElementById("resultado");
+
+    function limpiarErrores() {
+      errorUsuario.textContent = "";
+      errorEmail.textContent = "";
+      errorPassword.textContent = "";
+      errorPassword2.textContent = "";
+      errorCondiciones.textContent = "";
+      resultado.textContent = "";
+    }
+
+    function validarUsuario() {
+      if (usuario.value.trim().length < 4) {
+        errorUsuario.textContent = " Mínimo 4 caracteres";
+        return false;
+      }
+
+      return true;
+    }
+
+    function validarEmail() {
+      if (!email.value.includes("@") || !email.value.includes(".")) {
+        errorEmail.textContent = " Email no válido";
+        return false;
+      }
+
+      return true;
+    }
+
+    function validarPassword() {
+      if (password.value.length < 8) {
+        errorPassword.textContent = " Mínimo 8 caracteres";
+        return false;
+      }
+
+      if (!/[A-Z]/.test(password.value)) {
+        errorPassword.textContent = " Debe contener una mayúscula";
+        return false;
+      }
+
+      if (!/[0-9]/.test(password.value)) {
+        errorPassword.textContent = " Debe contener un número";
+        return false;
+      }
+
+      return true;
+    }
+
+    function validarPassword2() {
+      if (password2.value !== password.value) {
+        errorPassword2.textContent = " Las contraseñas no coinciden";
+        return false;
+      }
+
+      return true;
+    }
+
+    function validarCondiciones() {
+      if (!condiciones.checked) {
+        errorCondiciones.textContent = " Debes aceptar las condiciones";
+        return false;
+      }
+
+      return true;
+    }
+
+    usuario.addEventListener("blur", function () {
+      errorUsuario.textContent = "";
+      validarUsuario();
+    });
+
+    email.addEventListener("blur", function () {
+      errorEmail.textContent = "";
+      validarEmail();
+    });
+
+    password.addEventListener("input", function () {
+      errorPassword.textContent = "";
+      validarPassword();
+    });
+
+    password2.addEventListener("input", function () {
+      errorPassword2.textContent = "";
+      validarPassword2();
+    });
+
+    formulario.addEventListener("submit", function (evento) {
+      evento.preventDefault();
+
+      limpiarErrores();
+
+      const correcto =
+        validarUsuario() &&
+        validarEmail() &&
+        validarPassword() &&
+        validarPassword2() &&
+        validarCondiciones();
+
+      if (correcto) {
+        resultado.textContent = "Registro realizado correctamente para " + usuario.value;
+      } else {
+        resultado.textContent = "El formulario contiene errores.";
+      }
+    });
+  </script>
+
+</body>
+
+</html>

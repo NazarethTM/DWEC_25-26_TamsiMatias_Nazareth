@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ventana Principal</title>
+  </head>
+  <body>
+    <h1>Ventana Principal</h1>
+
+    <input id="mensaje" placeholder="Mensaje para secundaria" />
+    <button onclick="abrirVentana()">Abrir ventana</button>
+    <button onclick="enviar()">Enviar mensaje</button>
+
+    <p>Mensaje recibido:</p>
+    <div id="salida"></div>
+
+    <script>
+      let ventanaSecundaria = null;
+
+      function abrirVentana() {
+        ventanaSecundaria = window.open(
+          "ejercicio01_VentanaSecundaria.html",
+          "",
+        );
+      }
+
+      function enviar() {
+        let texto = document.getElementById("mensaje").value;
+
+        if (!ventanaSecundaria || ventanaSecundaria.closed) {
+          alert("La ventana secundaria no está abierta");
+          return;
+        }
+
+        localStorage.setItem("mensajePrincipal", texto);
+      }
+
+      window.addEventListener("storage", function (e) {
+        if (e.key === "mensajeSecundaria") {
+          document.getElementById("salida").textContent = e.newValue;
+        }
+      });
+    </script>
+  </body>
+</html>

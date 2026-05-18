@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Propiedades del objeto evento</title>
+</head>
+
+<body>
+
+  <h1>Propiedades de eventos de ratón</h1>
+
+  <p>Pasa el ratón, haz clic o doble clic sobre la caja.</p>
+
+  <div id="zona" style="width: 300px; height: 150px; border: 2px solid black; padding: 20px;">
+    Zona de pruebas
+  </div>
+
+  <h2>Salida 1: propiedades generales del evento</h2>
+  <pre id="salida1"></pre>
+
+  <h2>Salida 2: propiedades específicas del ratón</h2>
+  <pre id="salida2"></pre>
+
+  <script>
+    const zona = document.getElementById("zona");
+    const salida1 = document.getElementById("salida1");
+    const salida2 = document.getElementById("salida2");
+
+    // Asociamos 4 eventos de ratón al mismo elemento
+    zona.addEventListener("click", mostrarEvento);
+    zona.addEventListener("dblclick", mostrarEvento);
+    zona.addEventListener("mouseover", mostrarEvento);
+    zona.addEventListener("mousemove", mostrarEvento);
+    zona.addEventListener("mouseleave", mostrarEvento);
+
+    function mostrarEvento(evento) {
+
+      // Propiedades generales del objeto Event
+      salida1.textContent =
+        "type: " + evento.type + "\n" +
+        "target: " + evento.target.tagName + "\n" +
+        "currentTarget: " + evento.currentTarget.tagName + "\n" +
+        "bubbles: " + evento.bubbles + "\n" +
+        "cancelable: " + evento.cancelable + "\n" +
+        "defaultPrevented: " + evento.defaultPrevented + "\n" +
+        "eventPhase: " + evento.eventPhase + "\n" +
+        "timeStamp: " + evento.timeStamp + "\n" +
+        "isTrusted: " + evento.isTrusted + "\n" +
+        "composed: " + evento.composed + "\n" +
+        "composedPath(): " + evento.composedPath().map(e => e.tagName || e).join(" → ");
+
+      // Propiedades específicas de MouseEvent
+      salida2.textContent =
+        "button: " + evento.button + "\n" +
+        "buttons: " + evento.buttons + "\n" +
+        "clientX: " + evento.clientX + "\n" +
+        "clientY: " + evento.clientY + "\n" +
+        "screenX: " + evento.screenX + "\n" +
+        "screenY: " + evento.screenY + "\n" +
+        "pageX: " + evento.pageX + "\n" +
+        "pageY: " + evento.pageY + "\n" +
+        "offsetX: " + evento.offsetX + "\n" +
+        "offsetY: " + evento.offsetY + "\n" +
+        "movementX: " + evento.movementX + "\n" +
+        "movementY: " + evento.movementY + "\n" +
+        "altKey: " + evento.altKey + "\n" +
+        "ctrlKey: " + evento.ctrlKey + "\n" +
+        "shiftKey: " + evento.shiftKey + "\n" +
+        "metaKey: " + evento.metaKey;
+    }
+  </script>
+
+</body>
+
+</html>

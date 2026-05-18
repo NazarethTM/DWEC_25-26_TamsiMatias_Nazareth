@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tamaño de la ventana</title>
+</head>
+
+<body>
+
+    <h1>Tamaño de la ventana del navegador</h1>
+
+    <button id="btnMostrar">Mostrar tamaño</button>
+
+    <p id="resultado"></p>
+
+    <script>
+        document.getElementById("btnMostrar").addEventListener("click", mostrarTamano);
+        function mostrarTamano() {
+            let ancho = window.innerWidth;
+            let alto = window.innerHeight;
+            document.getElementById("resultado").textContent =
+                "Ancho: " + ancho + " px  |  Alto: " + alto + " px";
+        }
+    </script>
+
+</body>
+
+</html>
