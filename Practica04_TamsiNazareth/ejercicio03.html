@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ejercicio 3</title>
+
+    <style>
+      body {
+        font-family: Arial;
+        margin: 20px;
+      }
+
+      input {
+        padding: 8px;
+        width: 250px;
+      }
+
+      button {
+        padding: 8px;
+        margin: 5px;
+      }
+
+      li {
+        margin: 5px 0;
+      }
+
+      #mensaje {
+        margin-top: 15px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Ejercicio 3: localStorage</h1>
+
+    <input type="text" id="entrada" />
+
+    <button id="btnAgregar">Añadir</button>
+
+    <button id="btnBorrar">Borrar todo</button>
+
+    <ul id="lista"></ul>
+
+    <p id="mensaje"></p>
+
+    <script>
+      let tareas = [];
+
+      document.addEventListener("DOMContentLoaded", iniciar);
+
+      document
+        .getElementById("btnAgregar")
+        .addEventListener("click", agregarTarea);
+
+      document
+        .getElementById("btnBorrar")
+        .addEventListener("click", borrarTodo);
+
+      // Iniciar la aplicación
+      function iniciar() {
+        cargarTareas();
+
+        renderizarLista();
+      }
+
+      // Cargar tareas guardadas
+      function cargarTareas() {
+        let datos = localStorage.getItem("tareas");
+
+        if (datos !== null) {
+          tareas = JSON.parse(datos);
+        }
+      }
+
+      // Guardar tareas
+      function guardarTareas() {
+        localStorage.setItem("tareas", JSON.stringify(tareas));
+      }
+
+      // Añadir tarea
+      function agregarTarea() {
+        let texto = document.getElementById("entrada").value;
+
+        if (texto.trim() === "") {
+          mostrarMensaje("Debes escribir una tarea");
+
+          return;
+        }
+
+        tareas.push(texto);
+
+        guardarTareas();
+
+        renderizarLista();
+
+        document.getElementById("entrada").value = "";
+
+        mostrarMensaje("Tarea añadida");
+      }
+
+      // Mostrar tareas
+      function renderizarLista() {
+        let lista = document.getElementById("lista");
+
+        lista.innerHTML = "";
+
+        for (let i = 0; i < tareas.length; i++) {
+          let li = document.createElement("li");
+
+          li.textContent = tareas[i];
+
+          lista.appendChild(li);
+        }
+      }
+
+      // Borrar todo
+      function borrarTodo() {
+        let confirmar = window.confirm("¿Seguro que quieres borrar todo?");
+
+        if (confirmar) {
+          tareas = [];
+
+          localStorage.removeItem("tareas");
+
+          renderizarLista();
+
+          mostrarMensaje("Datos borrados");
+        } else {
+          mostrarMensaje("Operación cancelada");
+        }
+      }
+
+      // Mostrar mensajes
+      function mostrarMensaje(texto) {
+        document.getElementById("mensaje").textContent = texto;
+      }
+    </script>
+  </body>
+</html>

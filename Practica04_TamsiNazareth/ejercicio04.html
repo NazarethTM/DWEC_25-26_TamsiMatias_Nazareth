@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ejercicio 4</title>
+
+    <style>
+      body {
+        font-family: Arial;
+        margin: 20px;
+      }
+
+      button {
+        padding: 10px;
+        margin: 5px;
+      }
+
+      #salida {
+        margin-top: 20px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Ejercicio 4: objeto window</h1>
+
+    <button id="btnInfo">Información ventana</button>
+
+    <button id="btnBorrar">Borrar datos con confirmación</button>
+
+    <button id="btnAbrir">Abrir W3Schools</button>
+
+    <button id="btnIr">Ir a W3Schools</button>
+
+    <p id="salida"></p>
+
+    <script>
+      document.getElementById("btnInfo").addEventListener("click", mostrarInfo);
+
+      document
+        .getElementById("btnBorrar")
+        .addEventListener("click", borrarDatos);
+
+      document
+        .getElementById("btnAbrir")
+        .addEventListener("click", abrirPagina);
+
+      document.getElementById("btnIr").addEventListener("click", irPagina);
+
+      // Mostrar tamaño de la ventana
+      function mostrarInfo() {
+        let ancho = window.innerWidth;
+
+        let alto = window.innerHeight;
+
+        document.getElementById("salida").textContent =
+          "Ancho: " + ancho + "px | Alto: " + alto + "px";
+      }
+
+      // Borrar datos guardados
+      function borrarDatos() {
+        let confirmar = window.confirm("¿Seguro que quieres borrar los datos?");
+
+        if (confirmar) {
+          localStorage.removeItem("tareas");
+
+          document.getElementById("salida").textContent =
+            "Datos borrados correctamente";
+        } else {
+          document.getElementById("salida").textContent = "Operación cancelada";
+        }
+      }
+
+      // Abrir página en otra pestaña
+      function abrirPagina() {
+        window.open("https://www.w3schools.com");
+      }
+
+      // Abrir página en la misma pestaña
+      function irPagina() {
+        location.href = "https://www.w3schools.com";
+      }
+    </script>
+  </body>
+</html>

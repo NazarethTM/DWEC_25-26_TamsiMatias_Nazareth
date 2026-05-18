@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ejercicio 2</title>
+
+    <style>
+      body {
+        font-family: Arial;
+        margin: 20px;
+      }
+
+      input {
+        padding: 8px;
+        width: 250px;
+      }
+
+      button {
+        padding: 8px;
+        margin: 5px;
+      }
+
+      ul {
+        margin-top: 20px;
+      }
+
+      li {
+        margin: 5px 0;
+      }
+
+      #mensaje {
+        font-weight: bold;
+        margin-top: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Ejercicio 2: Manipulación del DOM</h1>
+
+    <input type="text" id="textoElemento" />
+
+    <br /><br />
+
+    <button id="btnFinal">Añadir al final</button>
+
+    <button id="btnInicio">Añadir al principio</button>
+
+    <button id="btnInsertar">Insertar antes del segundo</button>
+
+    <button id="btnEliminar">Eliminar último</button>
+
+    <button id="btnReiniciar">Reiniciar lista</button>
+
+    <ul id="lista">
+      <li>Elemento 1</li>
+
+      <li>Elemento 2</li>
+
+      <li>Elemento 3</li>
+    </ul>
+
+    <p id="mensaje"></p>
+
+    <script>
+      document
+        .getElementById("btnFinal")
+        .addEventListener("click", agregarFinal);
+
+      document
+        .getElementById("btnInicio")
+        .addEventListener("click", agregarInicio);
+
+      document
+        .getElementById("btnInsertar")
+        .addEventListener("click", insertarSegundo);
+
+      document
+        .getElementById("btnEliminar")
+        .addEventListener("click", eliminarUltimo);
+
+      document
+        .getElementById("btnReiniciar")
+        .addEventListener("click", reiniciarLista);
+
+      // Obtener el texto del input
+      function obtenerTexto() {
+        let texto = document.getElementById("textoElemento").value;
+
+        if (texto.trim() === "") {
+          mostrarMensaje("Debes escribir un texto");
+
+          return null;
+        }
+
+        return texto;
+      }
+
+      // Mostrar mensajes
+      function mostrarMensaje(texto) {
+        document.getElementById("mensaje").textContent = texto;
+      }
+
+      // Añadir al final
+      function agregarFinal() {
+        let texto = obtenerTexto();
+
+        if (texto === null) {
+          return;
+        }
+
+        let nuevo = document.createElement("li");
+
+        nuevo.textContent = texto;
+
+        document.getElementById("lista").appendChild(nuevo);
+
+        mostrarMensaje("Elemento añadido al final");
+      }
+
+      // Añadir al principio
+      function agregarInicio() {
+        let texto = obtenerTexto();
+
+        if (texto === null) {
+          return;
+        }
+
+        let nuevo = document.createElement("li");
+
+        nuevo.textContent = texto;
+
+        document.getElementById("lista").prepend(nuevo);
+
+        mostrarMensaje("Elemento añadido al principio");
+      }
+
+      // Insertar antes del segundo
+      function insertarSegundo() {
+        let texto = obtenerTexto();
+
+        if (texto === null) {
+          return;
+        }
+
+        let lista = document.getElementById("lista");
+
+        let nuevo = document.createElement("li");
+
+        nuevo.textContent = texto;
+
+        let referencia = lista.children[1];
+
+        lista.insertBefore(nuevo, referencia);
+
+        mostrarMensaje("Elemento insertado correctamente");
+      }
+
+      // Eliminar último
+      function eliminarUltimo() {
+        let lista = document.getElementById("lista");
+
+        let ultimo = lista.lastElementChild;
+
+        if (ultimo) {
+          ultimo.remove();
+
+          mostrarMensaje("Último elemento eliminado");
+        } else {
+          mostrarMensaje("La lista está vacía");
+        }
+      }
+
+      // Reiniciar lista
+      function reiniciarLista() {
+        let lista = document.getElementById("lista");
+
+        lista.innerHTML = `
+                <li>Elemento 1</li>
+                <li>Elemento 2</li>
+                <li>Elemento 3</li>
+            `;
+
+        mostrarMensaje("Lista reiniciada");
+      }
+    </script>
+  </body>
+</html>

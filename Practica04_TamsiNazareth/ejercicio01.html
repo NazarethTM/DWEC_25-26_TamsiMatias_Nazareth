@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ejercicio 1</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+
+      input {
+        width: 300px;
+        padding: 8px;
+      }
+
+      button {
+        padding: 8px;
+        margin-left: 5px;
+      }
+
+      .caja {
+        border: 1px solid black;
+        padding: 10px;
+        margin-top: 10px;
+        min-height: 30px;
+      }
+
+      #mensaje {
+        margin-top: 15px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Ejercicio 1: value, textContent e innerHTML</h1>
+
+    <p>Prueba a escribir algo como: &lt;b&gt;Hola&lt;/b&gt;</p>
+
+    <input type="text" id="entrada" />
+
+    <button id="btnMostrar">Mostrar</button>
+
+    <button id="btnLimpiar">Limpiar</button>
+
+    <h3>Resultado con textContent</h3>
+
+    <div class="caja" id="salidaTexto"></div>
+
+    <h3>Resultado con innerHTML</h3>
+
+    <div class="caja" id="salidaHTML"></div>
+
+    <p id="mensaje"></p>
+
+    <script>
+      let botonMostrar = document.getElementById("btnMostrar");
+
+      let botonLimpiar = document.getElementById("btnLimpiar");
+
+      botonMostrar.addEventListener("click", mostrarTexto);
+
+      botonLimpiar.addEventListener("click", limpiar);
+
+      // Función para mostrar el texto
+      function mostrarTexto() {
+        let texto = document.getElementById("entrada").value;
+
+        if (texto.trim() === "") {
+          let mensaje = document.getElementById("mensaje");
+
+          mensaje.textContent = "Error: el campo está vacío";
+
+          mensaje.style.color = "red";
+
+          return;
+        }
+
+        document.getElementById("salidaTexto").textContent = texto;
+
+        document.getElementById("salidaHTML").innerHTML = texto;
+
+        let mensaje = document.getElementById("mensaje");
+
+        mensaje.textContent = "Texto mostrado correctamente";
+
+        mensaje.style.color = "green";
+      }
+
+      // Función para limpiar
+      function limpiar() {
+        document.getElementById("entrada").value = "";
+
+        document.getElementById("salidaTexto").textContent = "";
+
+        document.getElementById("salidaHTML").innerHTML = "";
+
+        document.getElementById("mensaje").textContent = "";
+      }
+    </script>
+  </body>
+</html>
